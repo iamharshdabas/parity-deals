@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <header className="flex justify-between items-center">
+    <header className="flex absolute top-0 w-full p-4 justify-between items-center">
       <div className="flex gap-2 items-center">
         <EarthIcon /> {siteData.title}
       </div>

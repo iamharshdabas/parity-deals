@@ -1,3 +1,3 @@
 export default function Footer() {
-  return <div className="text-center">Footer</div>;
+  return <footer className="text-center">Footer</footer>;
 }

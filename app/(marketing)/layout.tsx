@@ -39,10 +39,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="container gap-4 flex flex-col min-h-screen p-4">
+          <div className="container relative">
             <Navbar />
-            <main className="grow">{children}</main>
-            <Footer />
+            <div className="py-24 px-4 space-y-24">
+              <main className="min-h-screen">{children}</main>
+              <Footer />
+            </div>
           </div>
         </ThemeProvider>
       </body>
