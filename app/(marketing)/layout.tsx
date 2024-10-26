@@ -1,17 +1,17 @@
-import Navbar from "@/components/layout/navbar";
-import ThemeProvider from "@/components/provider/theme";
+import "@/app/globals.css";
+import ThemeProvider from "@/components/theme/provider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ReactNode } from "react";
-import "./globals.css";
+import Navbar from "./_components/navbar";
 
 const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
+  src: "../fonts/GeistVF.woff",
   variable: "--font-geist-sans",
   weight: "100 900",
 });
 const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
+  src: "../fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
   weight: "100 900",
 });
