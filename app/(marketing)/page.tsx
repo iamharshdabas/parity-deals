@@ -4,7 +4,7 @@ import { subtitle, title } from "@/config/class-variants";
 export default function Page() {
   return (
     <>
-      <section className="flex flex-col justify-center items-center py-24 gap-8">
+      <section className="flex min-h-screen flex-col justify-center py-24 items-center gap-8">
         <h1 className={title()}>Price Smarter, Sell bigger!</h1>
         <h2 className={subtitle({ class: "max-w-prose text-center" })}>
           Optimize your product pricing across countries to maximize sales.

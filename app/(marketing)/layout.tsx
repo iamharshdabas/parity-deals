@@ -5,7 +5,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { ReactNode } from "react";
 import Navbar from "./_components/navbar";
-import Footer from "./_components/footer";
 
 const geistSans = localFont({
   src: "../fonts/GeistVF.woff",
@@ -39,12 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="container relative">
-            <Navbar />
-            <div className="py-24 px-4 space-y-24">
-              <main className="min-h-screen">{children}</main>
-              <Footer />
-            </div>
+          <Navbar />
+          <div className="container mx-auto px-4">
+            <main>{children}</main>
           </div>
         </ThemeProvider>
       </body>
