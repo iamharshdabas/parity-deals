@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="flex fixed justify-center py-4 w-full">
+    <div className="flex fixed justify-center p-4 w-full">
       <header className="flex p-4 container rounded-2xl shadow-2xl border border-border justify-between items-center">
         <div className="flex gap-2 items-center">
           {siteData.icon}
