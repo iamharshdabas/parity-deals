@@ -1,3 +1,4 @@
+import Section from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { subtitle, title } from "@/config/class-variants";
@@ -11,7 +12,7 @@ import numbro from "numbro";
 export default function Page() {
   return (
     <>
-      <section className="flex min-h-screen flex-col justify-center py-16 items-center gap-8">
+      <Section>
         <h1 className={title()}>Price Smarter, Sell bigger!</h1>
         <h2 className={subtitle({ class: "max-w-prose text-center" })}>
           Optimize your product pricing across countries to maximize sales.
@@ -21,9 +22,9 @@ export default function Page() {
           <Button variant="outline">Book a demo</Button>
           <Button>Get started for free </Button>
         </div>
-      </section>
+      </Section>
 
-      <section className="flex min-h-screen flex-col justify-center py-16 items-center gap-16">
+      <Section className="gap-16">
         <h1 className={title({ class: "text-center text-balance" })}>
           {subscriptionData.title}
         </h1>
@@ -66,7 +67,7 @@ export default function Page() {
             </Card>
           ))}
         </div>
-      </section>
+      </Section>
     </>
   );
 }

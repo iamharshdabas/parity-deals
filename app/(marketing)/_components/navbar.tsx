@@ -1,5 +1,7 @@
+import SignInButton from "@/components/auth/sign-in";
 import ThemeToggle from "@/components/theme/toggle";
 import { siteData, siteNavLinks } from "@/config/site";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -19,6 +21,12 @@ export default function Navbar() {
         </nav>
         <div className="flex gap-2 items-center">
           <ThemeToggle />
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+          <SignedIn>
+            <UserButton />
+          </SignedIn>
         </div>
       </header>
     </div>
