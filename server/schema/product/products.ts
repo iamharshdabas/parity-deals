@@ -1,7 +1,11 @@
-import { pgTable, text, uuid, varchar } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
+import { index, pgTable, text, uuid, varchar } from "drizzle-orm/pg-core";
 import { createdAt, length, updatedAt } from "../constants";
+import { productsCustomizations } from "./products-customizations";
+import { productsViews } from "./products-views";
+import { countriesGroupDiscount } from "../country/countries-group-discount";
 
-export const Products = pgTable(
+export const products = pgTable(
   "products",
   {
     id: uuid().defaultRandom().primaryKey().notNull(),
@@ -14,10 +18,18 @@ export const Products = pgTable(
     createdAt,
     updatedAt,
   },
-  // BUG: this cause pgTable invalid signature
-  // (table) => {
-  //   return {
-  //     clerkIdIndex: index("clerk_id_index").on(table.clerkId),
-  //   };
-  // },
+  (table) => {
+    return {
+      clerkIdIndex: index("clerk_id_index").on(table.clerkId),
+    };
+  },
 );
+
+export const productsRelations = relations(products, ({ one, many }) => ({
+  productsCustomizations: one(productsCustomizations),
+  productsViews: many(productsViews),
+  countriesGroupDiscount: many(countriesGroupDiscount),
+}));
+
+export type Products = typeof products.$inferSelect;
+export type ProductsInsert = typeof products.$inferInsert;
