@@ -5,7 +5,7 @@ import { countries } from "../country/countries";
 import { products } from "./products";
 
 export const productsViews = pgTable("products_views", {
-  id: uuid().defaultRandom().primaryKey().notNull(),
+  id: uuid("id").defaultRandom().primaryKey().notNull(),
 
   productId: uuid("product_id")
     .references(() => products.id, { onDelete: "cascade" })

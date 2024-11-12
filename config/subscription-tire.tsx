@@ -1,5 +1,3 @@
-export type tireName = "Free" | "Basic" | "Standard" | "Premium";
-
 type SubscriptionTire = {
   name: string;
   price: number;

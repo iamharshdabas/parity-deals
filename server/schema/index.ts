@@ -4,3 +4,4 @@ export * from "./country/countries-group-discount";
 export * from "./product/products";
 export * from "./product/products-customizations";
 export * from "./product/products-views";
+export * from "./user/user-subscription";

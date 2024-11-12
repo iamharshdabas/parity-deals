@@ -8,8 +8,8 @@ import { countriesGroupDiscount } from "../country/countries-group-discount";
 export const products = pgTable(
   "products",
   {
-    id: uuid().defaultRandom().primaryKey().notNull(),
-    clerkId: varchar("clerk_id", { length }).notNull(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    clerkId: varchar("clerk_id", { length }).unique().notNull(),
 
     name: varchar("name", { length }).notNull(),
     url: text("url").notNull(),
@@ -20,7 +20,7 @@ export const products = pgTable(
   },
   (table) => {
     return {
-      clerkIdIndex: index("clerk_id_index").on(table.clerkId),
+      productsClerkIdIndex: index("products_clerk_id_index").on(table.clerkId),
     };
   },
 );

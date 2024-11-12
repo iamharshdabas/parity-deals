@@ -1,37 +1,43 @@
 import { index, pgEnum, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
-import { createdAt, updatedAt } from "../constants";
-import { subscriptionTires, tireName } from "@/config/subscription-tire";
+import { createdAt, length, updatedAt } from "../constants";
 
-export const tierEnum = pgEnum(
-  "tier",
-  Object.keys(subscriptionTires) as [tireName],
-);
+export const tierEnum = pgEnum("tier", [
+  "Free",
+  "Basic",
+  "Standard",
+  "Premium",
+]);
 
 export const userSubscription = pgTable(
   "user_subscription",
   {
-    id: uuid().defaultRandom().primaryKey().notNull(),
-    clerkId: varchar("clerk_id", { length }).notNull(),
+    id: uuid("id").defaultRandom().primaryKey().notNull(),
+    clerkId: varchar("clerk_id", { length }).unique().notNull(),
 
-    stripeCustomerId: varchar("stripe_customer_id", { length }).notNull(),
+    stripeCustomerId: varchar("stripe_customer_id", { length }),
     stripeSubscriptionId: varchar("stripe_subscription_id", {
       length,
-    }).notNull(),
+    }),
     stripeSubscriptionItemId: varchar("stripe_subscription_item_id", {
       length,
-    }).notNull(),
+    }),
 
-    tier: tierEnum("tire").notNull(),
+    tier: tierEnum("tier").notNull(),
 
     updatedAt,
     createdAt,
   },
   (table) => {
     return {
-      clerkIdIndex: index("clerk_id_index").on(table.clerkId),
-      stripeCustomerIdIndex: index("stripe_customer_id_index").on(
-        table.stripeCustomerId,
-      ),
+      userSubscriptionClerkIdIndex: index(
+        "user_subscription_clerk_id_index",
+      ).on(table.clerkId),
+      userSubscriptionStripeCustomerIdIndex: index(
+        "user_subscription_stripe_customer_id_index",
+      ).on(table.stripeCustomerId),
     };
   },
 );
+
+export type UserSubscription = typeof userSubscription.$inferSelect;
+export type UserSubscriptionInsert = typeof userSubscription.$inferInsert;
