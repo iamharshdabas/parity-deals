@@ -11,7 +11,7 @@ export const productTable = pgTable(
   "product",
   {
     id: uuid("id").defaultRandom().primaryKey().notNull(),
-    clerkId: varchar("clerk_id", { length }).unique().notNull(),
+    clerkId: varchar("clerk_id", { length }).notNull(),
 
     name: varchar("name", { length }).notNull(),
     url: text("url").notNull(),
