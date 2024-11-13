@@ -22,7 +22,7 @@ export const userSubscription = pgTable(
       length,
     }),
 
-    tier: tierEnum("tier").notNull(),
+    tier: tierEnum("tier").default("Free").notNull(),
 
     updatedAt,
     createdAt,

@@ -1,5 +1,6 @@
 import { env } from "@/lib/env";
 import { createSubscription } from "@/server/action/subscription/create";
+import { deleteUser } from "@/server/action/user/delete";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
@@ -35,15 +36,16 @@ export async function POST(req: Request) {
     });
   }
 
-  const id = event.data.id;
+  const clerkId = event.data.id;
 
-  if (!id) return null;
+  if (!clerkId) return null;
 
   switch (event.type) {
     case "user.created":
-      await createSubscription({ clerkId: id, tier: "Free" });
+      await createSubscription({ clerkId });
       break;
     case "user.deleted":
+      await deleteUser(clerkId);
       break;
     default:
       console.error(`Unknown webhook event type: ${event.type}`);
