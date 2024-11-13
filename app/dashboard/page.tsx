@@ -4,12 +4,15 @@ import { ProductSelectSchema } from "@/drizzle/schema";
 import { getProducts } from "@/server/db/products/get";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
+import NoProducts from "./_components/no-products";
 
 export default async function Page() {
   const { userId, redirectToSignIn } = await auth();
   if (!userId) return redirectToSignIn();
 
   const products = await getProducts(userId, 6);
+
+  if (products.length === 0) return <NoProducts />;
 
   return (
     <div>
