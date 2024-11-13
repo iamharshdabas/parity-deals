@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { productInsertSchema, ProductInsertSchema } from "@/drizzle/schema";
-import { createProductAction } from "@/server/action/products/create";
+import { createProductAction } from "@/server/action/product/create";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -36,9 +36,14 @@ export default function NewProduct({ clerkId }: { clerkId: string }) {
   });
 
   async function onSubmit(data: ProductInsertSchema) {
-    const res = await createProductAction(data);
-    if (res?.error) {
-      toast.error(res.message);
+    const isCreated = await createProductAction(data);
+    if (isCreated?.error) {
+      toast.error(isCreated.message);
+    }
+    if (isCreated.success) {
+      toast.success(isCreated.message);
+      // NOTE: this toast will not work until edit page is created
+      // redirect(siteHref.productEdit(isCreated.data.id));
     }
   }
 

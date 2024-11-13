@@ -7,10 +7,7 @@ import {
 import { eq } from "drizzle-orm";
 
 export async function createProduct(data: ProductInsertSchema) {
-  const [newProduct] = await db
-    .insert(productTable)
-    .values(data)
-    .returning({ id: productTable.id });
+  const [newProduct] = await db.insert(productTable).values(data).returning();
 
   try {
     await db
