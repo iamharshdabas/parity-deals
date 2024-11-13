@@ -6,7 +6,7 @@ export default defineConfig({
   dbCredentials: {
     url: env.DATABASE_URL,
   },
-  schema: "./server/schema/index.ts",
+  schema: "./drizzle/schema/index.ts",
   strict: true,
   verbose: true,
 });

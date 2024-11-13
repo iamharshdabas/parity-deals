@@ -8,16 +8,20 @@ export const siteData = {
 };
 
 export const siteHref = {
-  root: {
-    page: "/",
-  },
+  home: () => "/",
+  dashboard: () => "/dashboard",
+  product: () => `${siteHref.dashboard()}/product`,
+  productEdit: (id: string) => `${siteHref.product()}/${id}/edit`,
+  newProduct: () => `${siteHref.product()}/new`,
 };
 
-const marketing: { label: string; href: string }[] = [
+export const siteNavLinks: { label: string; href: string }[] = [
   {
     label: "Home",
-    href: siteHref.root.page,
+    href: siteHref.home(),
+  },
+  {
+    label: "Dashboard",
+    href: siteHref.dashboard(),
   },
 ];
-
-export const siteNavLinks = { marketing };

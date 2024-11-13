@@ -1,15 +1,18 @@
 "use server";
 
 import { db } from "@/drizzle/db";
-import { UserSubscriptionInsert, userSubscription } from "@/drizzle/schema";
+import {
+  UserSubscriptionInsertSchema,
+  userSubscriptionTable,
+} from "@/drizzle/schema";
 
-export async function createSubscription(data: UserSubscriptionInsert) {
+export async function createSubscription(data: UserSubscriptionInsertSchema) {
   return await db
-    .insert(userSubscription)
+    .insert(userSubscriptionTable)
     .values(data)
-    .onConflictDoNothing({ target: userSubscription.clerkId })
+    .onConflictDoNothing({ target: userSubscriptionTable.clerkId })
     .returning({
-      id: userSubscription.id,
-      clerkId: userSubscription.clerkId,
+      id: userSubscriptionTable.id,
+      clerkId: userSubscriptionTable.clerkId,
     });
 }
