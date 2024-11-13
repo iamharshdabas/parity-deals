@@ -1,9 +1,9 @@
 import "@/app/globals.css";
-import ThemeProvider from "@/components/theme/provider";
 import { Toaster } from "@/components/ui/sonner";
 import { siteData } from "@/config/site";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import localFont from "next/font/local";
 import { ReactNode } from "react";
 
