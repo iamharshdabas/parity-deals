@@ -1,7 +1,7 @@
 "use server";
 
-import { db } from "@/server/db";
-import { UserSubscriptionInsert, userSubscription } from "@/server/schema";
+import { db } from "@/drizzle/db";
+import { UserSubscriptionInsert, userSubscription } from "@/drizzle/schema";
 
 export async function createSubscription(data: UserSubscriptionInsert) {
   return await db
