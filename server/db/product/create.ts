@@ -8,7 +8,10 @@ import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
 import { eq } from "drizzle-orm";
 
 export async function createProduct(data: ProductInsertSchema) {
-  const [newProduct] = await db.insert(productTable).values(data).returning();
+  const [newProduct] = await db
+    .insert(productTable)
+    .values(data)
+    .returning({ id: productTable.id });
 
   try {
     await db
@@ -22,7 +25,7 @@ export async function createProduct(data: ProductInsertSchema) {
 
   revalidateDbCache({
     tag: CACHE_TAGS.products,
-    userId: newProduct.clerkId,
+    userId: data.clerkId,
     id: newProduct.id,
   });
 

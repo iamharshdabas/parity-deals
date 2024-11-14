@@ -17,7 +17,7 @@ export async function deleteProductAction(data: ProductSelectSchema) {
   if (isDeleted) {
     return {
       success: isDeleted,
-      message: successMessage.product.deleted(data.name),
+      message: successMessage.product.deleted,
     };
   }
 

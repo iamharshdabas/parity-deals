@@ -7,7 +7,7 @@ export const errorMessage = {
 
 export const successMessage = {
   product: {
-    created: (name: string) => `Product ${name} created successfully!`,
-    deleted: (name: string) => `Product ${name} deleted successfully!`,
+    created: "Product created successfully!",
+    deleted: "Product deleted successfully!",
   },
 };

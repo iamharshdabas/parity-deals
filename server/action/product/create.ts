@@ -17,7 +17,7 @@ export async function createProductAction(unsafeData: ProductInsertSchema) {
 
   return {
     success: true,
-    message: successMessage.product.created(product.name),
+    message: successMessage.product.created,
     data: product,
   };
 }
