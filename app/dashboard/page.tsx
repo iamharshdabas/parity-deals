@@ -25,6 +25,7 @@ import { EllipsisVerticalIcon } from "lucide-react";
 import Link from "next/link";
 import AddToSite from "./_components/add-to-site";
 import DeleteProduct from "./_components/delete-product";
+import BackButton from "@/components/layout/back-button";
 
 export default async function Page() {
   const { userId, redirectToSignIn } = await auth();
@@ -35,12 +36,16 @@ export default async function Page() {
   if (products.length === 0) return <NoProducts />;
 
   return (
-    <div>
-      <Button variant="link" asChild>
-        <Link href={siteHref.newProduct()}>Create Product</Link>
-      </Button>
+    <BackButton
+      backButtonHref={siteHref.home()}
+      layoutButton={
+        <Button variant="secondary" asChild>
+          <Link href={siteHref.newProduct()}>Create Product</Link>
+        </Button>
+      }
+    >
       <ProductGrid products={products} />
-    </div>
+    </BackButton>
   );
 }
 
