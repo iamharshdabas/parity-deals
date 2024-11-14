@@ -103,7 +103,7 @@ function NoProducts() {
   return (
     <Section>
       <h1 className={title()}>You have no products</h1>
-      <h2 className={subtitle()}> Get started by creating a product</h2>
+      <h2 className={subtitle()}>Get started by creating a product</h2>
       <Button asChild>
         <Link href={siteHref.newProduct()}>Add Product</Link>
       </Button>

@@ -1,7 +1,7 @@
-import { auth } from "@clerk/nextjs/server";
-import NewProduct from "../../_components/form/newProduct";
 import BackButton from "@/components/layout/back-button";
 import { siteHref } from "@/config/site";
+import { auth } from "@clerk/nextjs/server";
+import ProductDetails from "../../_components/form/product-details";
 
 export default async function Page() {
   const { userId, redirectToSignIn } = await auth();
@@ -9,7 +9,7 @@ export default async function Page() {
 
   return (
     <BackButton backButtonHref={siteHref.dashboard()}>
-      <NewProduct clerkId={userId} />
+      <ProductDetails clerkId={userId} cardTitle="Create new product" />
     </BackButton>
   );
 }

@@ -18,32 +18,67 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { productInsertSchema, ProductInsertSchema } from "@/drizzle/schema";
+import { siteHref } from "@/config/site";
+import {
+  productInsertSchema,
+  ProductInsertSchema,
+  ProductSelectSchema,
+} from "@/drizzle/schema";
 import { createProductAction } from "@/server/action/product/create";
+import { updateProductAction } from "@/server/action/product/update";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { LoaderCircle } from "lucide-react";
+import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export default function NewProduct({ clerkId }: { clerkId: string }) {
+export default function ProductDetails({
+  clerkId,
+  cardTitle,
+  product,
+}: {
+  clerkId: string;
+  cardTitle: string;
+  product?: ProductSelectSchema;
+}) {
   const form = useForm<ProductInsertSchema>({
     resolver: zodResolver(productInsertSchema),
-    defaultValues: {
-      clerkId,
-      name: "",
-      url: "",
-      description: "",
-    },
+    defaultValues: product
+      ? {
+          ...product,
+          description: product.description || "",
+          createdAt: new Date(product.createdAt),
+          updatedAt: new Date(product.updatedAt),
+        }
+      : {
+          clerkId,
+          name: "",
+          url: "",
+          description: "",
+        },
   });
 
   async function onSubmit(data: ProductInsertSchema) {
-    const isCreated = await createProductAction(data);
-    if (isCreated?.error) {
-      toast.error(isCreated.message);
-    }
-    if (isCreated.success) {
-      toast.success(isCreated.message);
-      // NOTE: this toast will not work until edit page is created
-      // redirect(siteHref.productEdit(isCreated.data.id));
+    if (product) {
+      const result = await updateProductAction(data, product.id);
+
+      if (result?.error) {
+        toast.error(result.message);
+      }
+
+      if (result.success) {
+        toast.success(result.message);
+      }
+    } else {
+      const result = await createProductAction(data);
+
+      if (result?.error) {
+        toast.error(result.message);
+      }
+      if (result.success) {
+        toast.success(result.message);
+        redirect(siteHref.productEdit(result.data.id));
+      }
     }
   }
 
@@ -52,7 +87,7 @@ export default function NewProduct({ clerkId }: { clerkId: string }) {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <Card>
           <CardHeader>
-            <CardTitle>Create new product</CardTitle>
+            <CardTitle>{cardTitle}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField
@@ -97,6 +132,9 @@ export default function NewProduct({ clerkId }: { clerkId: string }) {
           </CardContent>
           <CardFooter>
             <Button disabled={form.formState.isSubmitting} type="submit">
+              {form.formState.isSubmitting && (
+                <LoaderCircle className="animate-spin" />
+              )}
               Submit
             </Button>
           </CardFooter>

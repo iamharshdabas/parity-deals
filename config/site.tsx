@@ -7,12 +7,25 @@ export const siteData = {
   description: "",
 };
 
+export type EditProductTabHref = keyof typeof editProductTabHref;
+
+export const editProductTabHref = {
+  details: "details",
+  country: "country",
+};
+
 export const siteHref = {
   home: () => "/",
   dashboard: () => "/dashboard",
   product: () => `${siteHref.dashboard()}/product`,
-  productEdit: (id: string) => `${siteHref.product()}/${id}/edit`,
   newProduct: () => `${siteHref.product()}/new`,
+  productEdit: (id: string) => `${siteHref.product()}/${id}/edit`,
+  // TODO: searchParams. I wasn't able to find any way to set default tab in searchParams
+  // productEdit: (id: string, tab?: EditProductTabHref) => {
+  //   const url = `${siteHref.product()}/${id}/edit`;
+  //   if (tab) return `${url}?tab=${tab}`;
+  //   return url;
+  // },
 };
 
 export const siteNavLinks: { label: string; href: string }[] = [

@@ -8,7 +8,7 @@ import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
 import { eq } from "drizzle-orm";
 
 export async function createProduct(data: ProductInsertSchema) {
-  const [newProduct] = await db
+  const [createdProduct] = await db
     .insert(productTable)
     .values(data)
     .returning({ id: productTable.id });
@@ -16,18 +16,18 @@ export async function createProduct(data: ProductInsertSchema) {
   try {
     await db
       .insert(productCustomizationTable)
-      .values({ productId: newProduct.id })
+      .values({ productId: createdProduct.id })
       .onConflictDoNothing({ target: productCustomizationTable.productId });
   } catch (err) {
-    await db.delete(productTable).where(eq(productTable.id, newProduct.id));
+    await db.delete(productTable).where(eq(productTable.id, createdProduct.id));
     console.error(err);
   }
 
   revalidateDbCache({
     tag: CACHE_TAGS.products,
     userId: data.clerkId,
-    id: newProduct.id,
+    id: createdProduct.id,
   });
 
-  return newProduct;
+  return createdProduct;
 }
