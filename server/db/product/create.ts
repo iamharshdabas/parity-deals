@@ -4,6 +4,7 @@ import {
   ProductInsertSchema,
   productTable,
 } from "@/drizzle/schema";
+import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
 import { eq } from "drizzle-orm";
 
 export async function createProduct(data: ProductInsertSchema) {
@@ -18,6 +19,12 @@ export async function createProduct(data: ProductInsertSchema) {
     await db.delete(productTable).where(eq(productTable.id, newProduct.id));
     console.error(err);
   }
+
+  revalidateDbCache({
+    tag: CACHE_TAGS.products,
+    userId: newProduct.clerkId,
+    id: newProduct.id,
+  });
 
   return newProduct;
 }
