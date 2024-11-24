@@ -101,7 +101,7 @@ function ProductGrid({ products }: { products: ProductSelectSchema[] }) {
 
 function NoProducts() {
   return (
-    <Section>
+    <Section fullScreen={false}>
       <h1 className={title()}>You have no products</h1>
       <h2 className={subtitle()}>Get started by creating a product</h2>
       <Button asChild>
