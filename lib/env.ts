@@ -1,8 +1,5 @@
 import { createEnv } from "@t3-oss/env-nextjs";
 import { z } from "zod";
-import { loadEnvConfig } from "@next/env";
-
-loadEnvConfig(process.cwd());
 
 export const env = createEnv({
   server: {
