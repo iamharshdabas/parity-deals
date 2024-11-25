@@ -9,6 +9,8 @@ export type ValidTags =
 export const CACHE_TAGS = {
   products: "products",
   subscriptions: "subscriptions",
+  country: "country",
+  countryGroup: "countryGroup",
 } as const;
 
 export function getGlobalTag(tag: keyof typeof CACHE_TAGS) {

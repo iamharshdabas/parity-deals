@@ -32,7 +32,7 @@ import { redirect } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export default function ProductDetails({
+export default function ProductForm({
   clerkId,
   cardTitle,
   product,

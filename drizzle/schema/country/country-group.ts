@@ -1,7 +1,5 @@
 import { relations } from "drizzle-orm";
 import { pgTable, real, uuid, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 import { createdAt, length, updatedAt } from "../constants";
 import { countryTable } from "./country";
 import { countryGroupDiscountTable } from "./country-group-discount";
@@ -23,9 +21,3 @@ export const countryGroupRelations = relations(
     countryGroupDiscount: many(countryGroupDiscountTable),
   }),
 );
-
-export const countryGroupSelectSchema = createSelectSchema(countryGroupTable);
-export const countryGroupInsertSchema = createInsertSchema(countryGroupTable);
-
-export type CountryGroupSelectSchema = z.infer<typeof countryGroupSelectSchema>;
-export type CountryGroupInsertSchema = z.infer<typeof countryGroupInsertSchema>;
