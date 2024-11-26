@@ -1,3 +1,4 @@
+import BackButton from "@/components/layout/back-button";
 import Section from "@/components/layout/section";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
@@ -18,14 +19,13 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { subtitle, title } from "@/config/class-variants";
 import { siteHref } from "@/config/site";
-import { ProductSelectSchema } from "@/drizzle/schema";
+import { ProductSelectSchema } from "@/schema/product";
 import { getProducts } from "@/server/db/product/get";
 import { auth } from "@clerk/nextjs/server";
 import { EllipsisVerticalIcon } from "lucide-react";
 import Link from "next/link";
 import AddToSite from "./_components/add-to-site";
 import DeleteProduct from "./_components/delete-product";
-import BackButton from "@/components/layout/back-button";
 
 export default async function Page() {
   const { userId, redirectToSignIn } = await auth();

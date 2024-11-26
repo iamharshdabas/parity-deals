@@ -1,6 +1,4 @@
 import { index, pgEnum, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 import { createdAt, length, updatedAt } from "../constants";
 
 export const tierEnum = pgEnum("tier", [
@@ -40,17 +38,3 @@ export const userSubscriptionTable = pgTable(
     };
   },
 );
-
-export const userSubscriptionSelectSchema = createSelectSchema(
-  userSubscriptionTable,
-);
-export const userSubscriptionInsertSchema = createInsertSchema(
-  userSubscriptionTable,
-);
-
-export type UserSubscriptionSelectSchema = z.infer<
-  typeof userSubscriptionSelectSchema
->;
-export type UserSubscriptionInsertSchema = z.infer<
-  typeof userSubscriptionInsertSchema
->;

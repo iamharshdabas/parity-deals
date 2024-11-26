@@ -20,10 +20,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { siteHref } from "@/config/site";
 import {
-  productInsertSchema,
   ProductInsertSchema,
+  productInsertSchema,
   ProductSelectSchema,
-} from "@/drizzle/schema";
+} from "@/schema/product";
 import { createProductAction } from "@/server/action/product/create";
 import { updateProductAction } from "@/server/action/product/update";
 import { zodResolver } from "@hookform/resolvers/zod";

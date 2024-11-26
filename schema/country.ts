@@ -28,14 +28,32 @@ export type CountryGroupDiscountInsertSchema = z.infer<
   typeof countryGroupDiscountInsertSchema
 >;
 
-// optimized schema
+// custom schema
 export const countryGroupQuerySchema = countryGroupSelectSchema
   .pick({ id: true, name: true, recommendedDiscount: true })
   .extend({
     country: z.array(countrySelectSchema.pick({ name: true, code: true })),
     countryGroupDiscount: z.array(
-      countryGroupDiscountSelectSchema.pick({ discount: true, coupon: true }),
+      countryGroupDiscountSelectSchema
+        .pick({ discount: true, coupon: true })
+        .optional(),
     ),
   });
+export const countryGroupFormSchema = z.object({
+  groups: z.array(
+    z.object({
+      id: z.string().min(1, "Required"),
+      coupon: z.string().optional(),
+      discount: z
+        .number()
+        .min(1)
+        .max(100)
+        .or(z.nan())
+        .transform((n) => (isNaN(n) ? undefined : n))
+        .optional(),
+    }),
+  ),
+});
 
 export type CountryGroupQuerySchema = z.infer<typeof countryGroupQuerySchema>;
+export type CountryGroupFormSchema = z.infer<typeof countryGroupFormSchema>;

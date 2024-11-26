@@ -1,6 +1,7 @@
 import { db } from "@/drizzle/db";
-import { ProductInsertSchema, productTable } from "@/drizzle/schema";
+import { productTable } from "@/drizzle/schema";
 import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
+import { ProductInsertSchema } from "@/schema/product";
 import { and, eq } from "drizzle-orm";
 
 export async function updateProduct(

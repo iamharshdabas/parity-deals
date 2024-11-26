@@ -1,9 +1,7 @@
 import { db } from "@/drizzle/db";
-import {
-  UserSubscriptionInsertSchema,
-  userSubscriptionTable,
-} from "@/drizzle/schema";
+import { userSubscriptionTable } from "@/drizzle/schema";
 import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
+import { UserSubscriptionInsertSchema } from "@/schema/user";
 
 export async function createSubscription(data: UserSubscriptionInsertSchema) {
   const [createdSubscription] = await db

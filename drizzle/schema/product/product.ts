@@ -1,7 +1,5 @@
 import { relations } from "drizzle-orm";
 import { index, pgTable, text, uuid, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 import { createdAt, length, updatedAt } from "../constants";
 import { countryGroupDiscountTable } from "../country/country-group-discount";
 import { productCustomizationTable } from "./product-customization";
@@ -32,12 +30,3 @@ export const productRelations = relations(productTable, ({ one, many }) => ({
   productView: many(productViewTable),
   countryGroupDiscount: many(countryGroupDiscountTable),
 }));
-
-export const productSelectSchema = createSelectSchema(productTable);
-export const productInsertSchema = createInsertSchema(productTable, {
-  name: (schema) => schema.name.trim().min(1, { message: "Required" }),
-  url: (schema) => schema.url.trim().url(),
-});
-
-export type ProductSelectSchema = z.infer<typeof productSelectSchema>;
-export type ProductInsertSchema = z.infer<typeof productInsertSchema>;

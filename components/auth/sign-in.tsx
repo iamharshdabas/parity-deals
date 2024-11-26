@@ -1,7 +1,7 @@
 "use client";
 
-import { SignInButton as ClerkSignInButton } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import { SignInButton as ClerkSignInButton } from "@clerk/nextjs";
 
 export default function SignInButton() {
   return (

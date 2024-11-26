@@ -8,8 +8,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { ProductSelectSchema } from "@/drizzle/schema";
 import useCopy from "@/hooks/copy";
+import { ProductSelectSchema } from "@/schema/product";
 import { CopyIcon } from "lucide-react";
 
 type Props = {

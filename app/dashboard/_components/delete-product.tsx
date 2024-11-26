@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { ProductSelectSchema } from "@/drizzle/schema";
+import { ProductSelectSchema } from "@/schema/product";
 import { deleteProductAction } from "@/server/action/product/delete";
 import { useTransition } from "react";
 import { toast } from "sonner";

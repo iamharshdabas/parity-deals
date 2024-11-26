@@ -1,7 +1,5 @@
 import { relations } from "drizzle-orm";
 import { pgTable, text, uuid } from "drizzle-orm/pg-core";
-import { createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 import { createdAt, updatedAt } from "../constants";
 import { productTable } from "./product";
 
@@ -39,17 +37,3 @@ export const productCustomizationRelations = relations(
     }),
   }),
 );
-
-export const productCustomizationSelectSchema = createSelectSchema(
-  productCustomizationTable,
-);
-export const productCustomizationInsertSchema = createSelectSchema(
-  productCustomizationTable,
-);
-
-export type ProductCustomizationSelectSchema = z.infer<
-  typeof productCustomizationSelectSchema
->;
-export type ProductCustomizationInsertSchema = z.infer<
-  typeof productCustomizationInsertSchema
->;

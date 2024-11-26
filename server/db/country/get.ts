@@ -43,6 +43,7 @@ export async function getNotCachedCountryGroups(
           coupon: true,
         },
         where: eq(countryGroupDiscountTable.productId, productId),
+        limit: 1,
       },
     },
   });

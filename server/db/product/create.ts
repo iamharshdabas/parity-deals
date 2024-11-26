@@ -1,10 +1,7 @@
 import { db } from "@/drizzle/db";
-import {
-  productCustomizationTable,
-  ProductInsertSchema,
-  productTable,
-} from "@/drizzle/schema";
+import { productCustomizationTable, productTable } from "@/drizzle/schema";
 import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
+import { ProductInsertSchema } from "@/schema/product";
 import { eq } from "drizzle-orm";
 
 export async function createProduct(data: ProductInsertSchema) {

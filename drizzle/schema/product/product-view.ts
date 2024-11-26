@@ -1,7 +1,5 @@
 import { relations } from "drizzle-orm";
 import { pgTable, uuid } from "drizzle-orm/pg-core";
-import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 import { createdAt } from "../constants";
 import { countryTable } from "../country/country";
 import { productTable } from "./product";
@@ -29,9 +27,3 @@ export const productViewRelations = relations(productViewTable, ({ one }) => ({
     references: [countryTable.id],
   }),
 }));
-
-export const productViewSelectSchema = createSelectSchema(productViewTable);
-export const productViewInsertSchema = createInsertSchema(productViewTable);
-
-export type ProductViewSelectSchema = z.infer<typeof productViewSelectSchema>;
-export type ProductViewInsertSchema = z.infer<typeof productViewInsertSchema>;

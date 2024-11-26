@@ -1,7 +1,7 @@
 "use server";
 
 import { errorMessage, successMessage } from "@/config/message";
-import { ProductInsertSchema } from "@/drizzle/schema";
+import { ProductInsertSchema } from "@/schema/product";
 import { updateProduct } from "@/server/db/product/update";
 import { auth } from "@clerk/nextjs/server";
 

@@ -54,7 +54,51 @@ export default async function Page({
           />
         </TabsContent>
         <TabsContent value={editProductTabHref.country}>
-          <CountryTabContent countryGroups={countryGroups} />
+          <CountryTabContent
+            productId={productId}
+            countryGroups={[
+              {
+                id: "1",
+                name: "Group 1",
+                recommendedDiscount: 0,
+                country: [
+                  { name: "United States", code: "US" },
+                  { name: "India", code: "IN" },
+                ],
+                countryGroupDiscount: [],
+              },
+              {
+                id: "2",
+                name: "Group 2",
+                recommendedDiscount: 10,
+                country: [
+                  { name: "Canada", code: "CA" },
+                  { name: "Mexico", code: "MX" },
+                ],
+                countryGroupDiscount: [],
+              },
+              {
+                id: "3",
+                name: "Group 3",
+                recommendedDiscount: 20,
+                country: [
+                  { name: "Germany", code: "DE" },
+                  { name: "France", code: "FR" },
+                ],
+                countryGroupDiscount: [],
+              },
+              {
+                id: "4",
+                name: "Group 4",
+                recommendedDiscount: 30,
+                country: [
+                  { name: "Japan", code: "JP" },
+                  { name: "South Korea", code: "KR" },
+                ],
+                countryGroupDiscount: [],
+              },
+            ]}
+          />
         </TabsContent>
       </Tabs>
     </BackButton>
@@ -62,12 +106,12 @@ export default async function Page({
 }
 
 function CountryTabContent({
+  productId,
   countryGroups,
 }: {
+  productId: string;
   countryGroups: CountryGroupQuerySchema[];
 }) {
-  console.log(countryGroups);
-
   return (
     <Card>
       <CardHeader>
@@ -78,7 +122,7 @@ function CountryTabContent({
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <CountryForm />
+        <CountryForm productId={productId} countryGroups={countryGroups} />
       </CardContent>
     </Card>
   );
