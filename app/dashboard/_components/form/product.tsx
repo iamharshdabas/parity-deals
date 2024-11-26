@@ -131,7 +131,11 @@ export default function ProductForm({
             />
           </CardContent>
           <CardFooter>
-            <Button disabled={form.formState.isSubmitting} type="submit">
+            <Button
+              className="w-full sm:w-min"
+              type="submit"
+              disabled={form.formState.isSubmitting}
+            >
               {form.formState.isSubmitting && (
                 <LoaderCircle className="animate-spin" />
               )}

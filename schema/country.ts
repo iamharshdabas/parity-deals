@@ -33,25 +33,38 @@ export const countryGroupQuerySchema = countryGroupSelectSchema
   .pick({ id: true, name: true, recommendedDiscount: true })
   .extend({
     country: z.array(countrySelectSchema.pick({ name: true, code: true })),
-    countryGroupDiscount: z.array(
-      countryGroupDiscountSelectSchema
-        .pick({ discount: true, coupon: true })
-        .optional(),
-    ),
+    countryGroupDiscount: z
+      .array(
+        countryGroupDiscountSelectSchema
+          .pick({ discount: true, coupon: true })
+          .optional(),
+      )
+      .optional(),
   });
 export const countryGroupFormSchema = z.object({
   groups: z.array(
-    z.object({
-      id: z.string().min(1, "Required"),
-      coupon: z.string().optional(),
-      discount: z
-        .number()
-        .min(1)
-        .max(100)
-        .or(z.nan())
-        .transform((n) => (isNaN(n) ? undefined : n))
-        .optional(),
-    }),
+    z
+      .object({
+        id: z.string().min(1, "Required"),
+        coupon: z.string().optional(),
+        discount: z
+          .number()
+          .min(0)
+          .max(100)
+          .or(z.nan())
+          .transform((n) => (isNaN(n) ? undefined : n)),
+      })
+      .refine(
+        (value) => {
+          const hasCoupon = value.coupon != null && value.coupon.length > 0;
+          const hasDiscount = value.discount != null;
+          return !(hasCoupon && !hasDiscount);
+        },
+        {
+          message: "A discount is required if a coupon code is provided",
+          path: ["root"],
+        },
+      ),
   ),
 });
 
