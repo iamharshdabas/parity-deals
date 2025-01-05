@@ -1,4 +1,7 @@
 export const errorMessage = {
+  countryGroupDiscount: {
+    updated: "There was an error updating the country group discount",
+  },
   product: {
     created: "There was an error creating the product",
     deleted: "There was an error deleting the product",
@@ -7,6 +10,9 @@ export const errorMessage = {
 };
 
 export const successMessage = {
+  countryGroupDiscount: {
+    updated: "Country group discount updated successfully!",
+  },
   product: {
     created: "Product created successfully!",
     deleted: "Product deleted successfully!",

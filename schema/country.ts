@@ -57,6 +57,7 @@ export const countryGroupFormSchema = z.object({
         ({ coupon, discount }) => {
           const hasCoupon = coupon != undefined && coupon.length > 0;
           const hasDiscount = discount != undefined && discount > 0;
+          // TODO: what if user add discount and not coupon? how to handle this case?
           return !(hasCoupon && !hasDiscount);
         },
         {

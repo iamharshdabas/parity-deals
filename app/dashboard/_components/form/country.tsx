@@ -18,9 +18,11 @@ import {
   countryGroupFormSchema,
   CountryGroupQuerySchema,
 } from "@/schema/country";
+import { updateCountryGroupDiscountAction } from "@/server/action/country/update";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 export default function CountryForm({
@@ -47,7 +49,7 @@ export default function CountryForm({
     },
   });
 
-  function onSubmit(data: CountryGroupFormSchema) {
+  async function onSubmit(data: CountryGroupFormSchema) {
     const discountGroups: CountryGroupDiscountInsertSchema[] = data.groups.map(
       (group) => ({
         countryGroupId: group.id,
@@ -56,7 +58,18 @@ export default function CountryForm({
       }),
     );
 
-    console.log(discountGroups);
+    const result = await updateCountryGroupDiscountAction(
+      discountGroups,
+      productId,
+    );
+
+    if (result?.error) {
+      toast.error(result.message);
+    }
+
+    if (result.success) {
+      toast.success(result.message);
+    }
   }
 
   return (
