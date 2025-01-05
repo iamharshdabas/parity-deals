@@ -50,17 +50,17 @@ export const countryGroupFormSchema = z.object({
           .min(0)
           .max(100)
           .or(z.nan())
-          .transform((n) => (isNaN(n) ? 0 : n)),
+          .transform((n) => (isNaN(n) ? undefined : n))
+          .optional(),
       })
       .refine(
         ({ coupon, discount }) => {
-          const hasCoupon = coupon != null && coupon.length > 0;
-          const hasDiscount = discount > 0;
+          const hasCoupon = coupon != undefined && coupon.length > 0;
+          const hasDiscount = discount != undefined && discount > 0;
           return !(hasCoupon && !hasDiscount);
         },
         {
-          message:
-            "A discount more than 0% is required if a coupon code is provided",
+          message: "A discount is required if a coupon code is provided",
           path: ["root"],
         },
       ),

@@ -13,6 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { subtitle } from "@/config/class-variants";
 import {
+  CountryGroupDiscountInsertSchema,
   CountryGroupFormSchema,
   countryGroupFormSchema,
   CountryGroupQuerySchema,
@@ -40,17 +41,20 @@ export default function CountryForm({
         return {
           id: group.id,
           coupon: group.countryGroupDiscount?.[0]?.coupon ?? "",
-          discount: discount * 100, // we store discount from 0 to 1 in our database
+          discount: discount,
         };
       }),
     },
   });
 
   function onSubmit(data: CountryGroupFormSchema) {
-    const discountGroups = data.groups.map((group) => {
-      const discount = group.discount / 100;
-      return { ...group, discount };
-    });
+    const discountGroups: CountryGroupDiscountInsertSchema[] = data.groups.map(
+      (group) => ({
+        countryGroupId: group.id,
+        productId,
+        ...group,
+      }),
+    );
 
     console.log(discountGroups);
   }
@@ -92,10 +96,14 @@ export default function CountryForm({
                               type="number"
                               {...field}
                               value={
-                                isNaN(field.value) ? "0" : String(field.value)
+                                field.value === 0 ? "" : String(field.value)
                               }
                               onChange={(e) =>
-                                field.onChange(e.target.valueAsNumber)
+                                field.onChange(
+                                  e.target.value === ""
+                                    ? 0
+                                    : e.target.valueAsNumber,
+                                )
                               }
                               min={0}
                               max={100}

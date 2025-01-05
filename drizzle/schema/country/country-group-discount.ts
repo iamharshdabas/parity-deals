@@ -14,8 +14,8 @@ export const countryGroupDiscountTable = pgTable(
       .references(() => productTable.id)
       .notNull(),
 
-    coupon: varchar("coupon", { length }).notNull(),
-    discount: real("discount").notNull(),
+    coupon: varchar("coupon", { length }),
+    discount: real("discount"),
 
     createdAt,
     updatedAt,
