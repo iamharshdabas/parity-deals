@@ -39,8 +39,6 @@ export default async function Page({
 
   const countryGroups = await getCountryGroups(productId, userId);
 
-  console.log("countryGroups", countryGroups);
-
   return (
     <BackButton backButtonHref={siteHref.dashboard()}>
       <Tabs defaultValue={editProductTabHref.details}>

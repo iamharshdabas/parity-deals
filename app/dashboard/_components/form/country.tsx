@@ -47,7 +47,12 @@ export default function CountryForm({
   });
 
   function onSubmit(data: CountryGroupFormSchema) {
-    console.log(data);
+    const discountGroups = data.groups.map((group) => {
+      const discount = group.discount / 100;
+      return { ...group, discount };
+    });
+
+    console.log(discountGroups);
   }
 
   return (
@@ -87,9 +92,7 @@ export default function CountryForm({
                               type="number"
                               {...field}
                               value={
-                                field.value !== undefined && !isNaN(field.value)
-                                  ? String(field.value)
-                                  : "0"
+                                isNaN(field.value) ? "0" : String(field.value)
                               }
                               onChange={(e) =>
                                 field.onChange(e.target.valueAsNumber)
