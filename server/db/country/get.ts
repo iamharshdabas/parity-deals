@@ -1,8 +1,8 @@
 import { db } from "@/drizzle/db";
-import { countryGroupDiscountTable } from "@/drizzle/schema";
+import { countryGroupDiscountTable, countryGroupTable } from "@/drizzle/schema";
 import { CACHE_TAGS, dbCache, getGlobalTag, getIdTag } from "@/lib/cache";
 import { CountryGroupQuerySchema } from "@/schema/country";
-import { eq } from "drizzle-orm";
+import { asc, eq } from "drizzle-orm";
 import { getProduct } from "../product/get";
 
 export async function getCountryGroups(productId: string, clerkId: string) {
@@ -30,6 +30,7 @@ export async function getNotCachedCountryGroups(
       name: true,
       recommendedDiscount: true,
     },
+    orderBy: [asc(countryGroupTable.name)],
     with: {
       country: {
         columns: {
