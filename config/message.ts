@@ -7,6 +7,9 @@ export const errorMessage = {
     deleted: "There was an error deleting the product",
     updated: "There was an error updating the product",
   },
+  productCustomization: {
+    updated: "There was an error updating the product customization",
+  },
 };
 
 export const successMessage = {
@@ -17,5 +20,8 @@ export const successMessage = {
     created: "Product created successfully!",
     deleted: "Product deleted successfully!",
     updated: "Product updated successfully!",
+  },
+  productCustomization: {
+    updated: "Product customization updated successfully!",
   },
 };

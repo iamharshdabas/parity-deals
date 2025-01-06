@@ -61,7 +61,7 @@ export default async function Page({
         <TabsContent value={editProductTabHref.customizations}>
           <CustomizationForm
             productId={productId}
-            userId={userId}
+            clerkId={userId}
             canRemoveBranding={removeBranding}
             canCustomizeBanner={customizeBanner}
             productCustomization={productCustomization}

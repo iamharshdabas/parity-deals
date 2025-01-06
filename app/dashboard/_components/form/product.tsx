@@ -60,7 +60,10 @@ export default function ProductForm({
 
   async function onSubmit(data: ProductInsertSchema) {
     if (product) {
-      const result = await updateProductAction(data, product.id);
+      const result = await updateProductAction(data, {
+        clerkId,
+        productId: product.id,
+      });
 
       if (result?.error) {
         toast.error(result.message);

@@ -31,16 +31,18 @@ import {
   ProductCustomizationSelectSchema,
 } from "@/schema/product";
 import { subtitle } from "@/config/class-variants";
+import { updateProductCustomizationAction } from "@/server/action/product/update";
+import { toast } from "sonner";
 
 export default function CustomizationForm({
-  // productId,
-  // userId,
+  productId,
+  clerkId,
   canRemoveBranding,
   canCustomizeBanner,
   productCustomization,
 }: {
   productId: string;
-  userId: string;
+  clerkId: string;
   canRemoveBranding: boolean;
   canCustomizeBanner: boolean;
   productCustomization: ProductCustomizationSelectSchema;
@@ -53,19 +55,21 @@ export default function CustomizationForm({
     },
   });
 
-  async function onSubmit(data: ProductCustomizationFormSchema) {
-    // const result = await updateCountryGroupDiscountAction(
-    //   discountGroups,
-    //   productId,
-    // );
-    //
-    // if (result?.error) {
-    //   toast.error(result.message);
-    // }
-    //
-    // if (result.success) {
-    //   toast.success(result.message);
-    // }
+  async function onSubmit(rawData: ProductCustomizationFormSchema) {
+    const data = { ...rawData, productId };
+
+    const result = await updateProductCustomizationAction(data, {
+      clerkId,
+      productId,
+    });
+
+    if (result?.error) {
+      toast.error(result.message);
+    }
+
+    if (result.success) {
+      toast.success(result.message);
+    }
   }
 
   return (
