@@ -33,6 +33,7 @@ import {
 import { subtitle } from "@/config/class-variants";
 import { updateProductCustomizationAction } from "@/server/action/product/update";
 import { toast } from "sonner";
+import NoPermissionCard from "@/components/layout/no-permission-card";
 
 export default function CustomizationForm({
   productId,
@@ -79,7 +80,7 @@ export default function CustomizationForm({
         <CardDescription>
           Make it your own! Customize the look and feel of your banner.
         </CardDescription>
-        <div>
+        <div className="py-8">
           <h2 className={subtitle()}>Banner Preview</h2>
           <Banner
             message={form.watch("bannerMessage")}
@@ -92,6 +93,11 @@ export default function CustomizationForm({
             customizations={form.watch()}
           />
         </div>
+        {!canCustomizeBanner && (
+          <div className="py-8">
+            <NoPermissionCard />
+          </div>
+        )}
       </CardHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>

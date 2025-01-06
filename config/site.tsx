@@ -18,6 +18,7 @@ export const editProductTabHref = {
 export const siteHref = {
   home: () => "/",
   dashboard: () => "/dashboard",
+  subscription: () => `${siteHref.dashboard()}/subscription`,
   product: () => `${siteHref.dashboard()}/product`,
   newProduct: () => `${siteHref.product()}/new`,
   productEdit: (id: string) => `${siteHref.product()}/${id}/edit`,
