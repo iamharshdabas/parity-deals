@@ -1,5 +1,6 @@
 "use client";
 
+import NoPermissionCard from "@/components/permission/no-permission-card";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -18,6 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { errorMessage } from "@/config/message";
 import { siteHref } from "@/config/site";
 import {
   ProductInsertSchema,
@@ -35,10 +37,12 @@ import { toast } from "sonner";
 export default function ProductForm({
   clerkId,
   cardTitle,
+  canCreateProduct,
   product,
 }: {
   clerkId: string;
   cardTitle: string;
+  canCreateProduct?: boolean;
   product?: ProductSelectSchema;
 }) {
   const form = useForm<ProductInsertSchema>({
@@ -76,7 +80,9 @@ export default function ProductForm({
       const result = await createProductAction(data);
 
       if (result?.error) {
-        toast.error(result.message);
+        toast.error(result.message, {
+          action: result.action,
+        });
       }
       if (result.success) {
         toast.success(result.message);
@@ -91,6 +97,11 @@ export default function ProductForm({
         <Card>
           <CardHeader>
             <CardTitle>{cardTitle}</CardTitle>
+            {!canCreateProduct && !product && (
+              <div className="pt-8">
+                <NoPermissionCard message={errorMessage.product.permission} />
+              </div>
+            )}
           </CardHeader>
           <CardContent className="space-y-4">
             <FormField

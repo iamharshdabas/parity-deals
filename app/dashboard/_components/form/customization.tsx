@@ -22,18 +22,18 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import Banner from "@/components/layout/banner";
+import NoPermissionCard from "@/components/permission/no-permission-card";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { errorMessage } from "@/config/message";
 import {
   productCustomizationFormSchema,
   ProductCustomizationFormSchema,
   ProductCustomizationSelectSchema,
 } from "@/schema/product";
-import { subtitle } from "@/config/class-variants";
 import { updateProductCustomizationAction } from "@/server/action/product/update";
 import { toast } from "sonner";
-import NoPermissionCard from "@/components/layout/no-permission-card";
 
 export default function CustomizationForm({
   productId,
@@ -80,22 +80,30 @@ export default function CustomizationForm({
         <CardDescription>
           Make it your own! Customize the look and feel of your banner.
         </CardDescription>
-        <div className="py-8">
-          <h2 className={subtitle()}>Banner Preview</h2>
-          <Banner
-            message={form.watch("bannerMessage")}
-            canRemoveBranding={canRemoveBranding}
-            mappings={{
-              country: "United States",
-              coupon: "SUMMER",
-              discount: 20,
-            }}
-            customizations={form.watch()}
-          />
+        <div className="pt-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Banner Preview</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Banner
+                message={form.watch("bannerMessage")}
+                canRemoveBranding={canRemoveBranding}
+                mappings={{
+                  country: "United States",
+                  coupon: "SUMMER",
+                  discount: 20,
+                }}
+                customizations={form.watch()}
+              />
+            </CardContent>
+          </Card>
         </div>
         {!canCustomizeBanner && (
-          <div className="py-8">
-            <NoPermissionCard />
+          <div className="pt-8">
+            <NoPermissionCard
+              message={errorMessage.productCustomization.permission}
+            />
           </div>
         )}
       </CardHeader>

@@ -1,5 +1,6 @@
 "use server";
 
+import UpgradeAccount from "@/components/permission/upgrade-account";
 import { errorMessage, successMessage } from "@/config/message";
 import {
   productCustomizationInsertSchema,
@@ -46,8 +47,16 @@ export async function updateProductCustomizationAction(
   const { success, data } =
     productCustomizationInsertSchema.safeParse(unsafeData);
 
-  if (clerkId !== userId || !customizeBanner || !success) {
+  if (clerkId !== userId || !success) {
     return { error: true, message: errorMessage.productCustomization.updated };
+  }
+
+  if (!customizeBanner) {
+    return {
+      error: true,
+      message: errorMessage.productCustomization.permission.title,
+      action: UpgradeAccount(),
+    };
   }
 
   const isUpdated = await updateProductCustomization(data, {
