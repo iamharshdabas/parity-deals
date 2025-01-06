@@ -16,7 +16,7 @@ export const productViewInsertSchema = createInsertSchema(productViewTable);
 export const productCustomizationSelectSchema = createSelectSchema(
   productCustomizationTable,
 );
-export const productCustomizationInsertSchema = createSelectSchema(
+export const productCustomizationInsertSchema = createInsertSchema(
   productCustomizationTable,
 );
 
@@ -30,3 +30,42 @@ export type ProductCustomizationSelectSchema = z.infer<
 export type ProductCustomizationInsertSchema = z.infer<
   typeof productCustomizationInsertSchema
 >;
+
+// custom schema
+export const productBannerMappingsSchema = z.object({
+  country: z.string(),
+  coupon: z.string(),
+  discount: z.number(),
+});
+
+export const productCustomizationFormSchema = productCustomizationInsertSchema
+  .omit({
+    id: true,
+    productId: true,
+    createdAt: true,
+    updatedAt: true,
+  })
+  .extend({
+    classPrefix: z.string().optional(),
+    backgroundColor: z.string().min(1, "Required"),
+    textColor: z.string().min(1, "Required"),
+    fontSize: z.string().min(1, "Required"),
+    bannerContainer: z.string().min(1, "Required"),
+    bannerMessage: z.string().min(1, "Required"),
+    isSticky: z.boolean(),
+  });
+
+export const productBannerSchema = z.object({
+  canRemoveBranding: z.boolean(),
+  message: z.string().min(1, "Required"),
+  mappings: productBannerMappingsSchema,
+  customizations: productCustomizationFormSchema.omit({ bannerMessage: true }),
+});
+
+export type ProductBannerMappingsSchema = z.infer<
+  typeof productBannerMappingsSchema
+>;
+export type ProductCustomizationFormSchema = z.infer<
+  typeof productCustomizationFormSchema
+>;
+export type ProductBannerSchema = z.infer<typeof productBannerSchema>;

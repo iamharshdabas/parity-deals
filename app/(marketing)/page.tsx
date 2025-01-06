@@ -2,10 +2,7 @@ import Section from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { subtitle, title } from "@/config/class-variants";
-import {
-  subscriptionData,
-  subscriptionTires,
-} from "@/config/subscription-tire";
+import { subscriptionData } from "@/config/subscription-tire";
 import { CircleCheck } from "lucide-react";
 import numbro from "numbro";
 
@@ -29,7 +26,7 @@ export default function Page() {
           {subscriptionData.title}
         </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-8 lg:gap-16">
-          {subscriptionTires.map((tire) => (
+          {subscriptionData.tires.map((tire) => (
             <Card key={tire.name}>
               <CardHeader>
                 <CardTitle>{tire.name}</CardTitle>

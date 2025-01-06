@@ -48,7 +48,13 @@ const premium: SubscriptionTire = {
   canRemoveBranding: true,
 };
 
-export const subscriptionTires = [free, basic, standard, premium];
+export const subscriptionTires: { [key: string]: SubscriptionTire } = {
+  Free: free,
+  Basic: basic,
+  Standard: standard,
+  Premium: premium,
+};
 export const subscriptionData = {
   title: "Pricing software which pays for itself 20x over",
+  tires: [free, basic, standard, premium],
 };

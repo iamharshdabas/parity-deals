@@ -1,21 +1,15 @@
+import CustomizationForm from "@/app/dashboard/_components/form/customization";
 import CountryForm from "@/app/dashboard/_components/form/country";
 import ProductForm from "@/app/dashboard/_components/form/product";
 import BackButton from "@/components/layout/back-button";
 import Section from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { title } from "@/config/class-variants";
 import { editProductTabHref, siteHref } from "@/config/site";
-import { CountryGroupQuerySchema } from "@/schema/country";
 import { getCountryGroups } from "@/server/db/country/get";
-import { getProduct } from "@/server/db/product/get";
+import { canCustomizeBanner, canRemoveBranding } from "@/server/db/permission";
+import { getProduct, getProductCustomization } from "@/server/db/product/get";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 
@@ -38,6 +32,11 @@ export default async function Page({
   if (!product) return <NotFound />;
 
   const countryGroups = await getCountryGroups(productId, userId);
+  const productCustomization = await getProductCustomization(productId, userId);
+  if (!countryGroups || !productCustomization) return <NotFound />;
+
+  const customizeBanner = await canCustomizeBanner(userId);
+  const removeBranding = await canRemoveBranding(userId);
 
   return (
     <BackButton backButtonHref={siteHref.dashboard()}>
@@ -45,6 +44,9 @@ export default async function Page({
         <TabsList>
           <TabsTrigger value={editProductTabHref.details}>Details</TabsTrigger>
           <TabsTrigger value={editProductTabHref.country}>Country</TabsTrigger>
+          <TabsTrigger value={editProductTabHref.customizations}>
+            Customizations
+          </TabsTrigger>
         </TabsList>
         <TabsContent value={editProductTabHref.details}>
           <ProductForm
@@ -54,36 +56,19 @@ export default async function Page({
           />
         </TabsContent>
         <TabsContent value={editProductTabHref.country}>
-          <CountryTabContent
+          <CountryForm productId={productId} countryGroups={countryGroups} />
+        </TabsContent>
+        <TabsContent value={editProductTabHref.customizations}>
+          <CustomizationForm
             productId={productId}
-            countryGroups={countryGroups}
+            userId={userId}
+            canRemoveBranding={removeBranding}
+            canCustomizeBanner={customizeBanner}
+            productCustomization={productCustomization}
           />
         </TabsContent>
       </Tabs>
     </BackButton>
-  );
-}
-
-function CountryTabContent({
-  productId,
-  countryGroups,
-}: {
-  productId: string;
-  countryGroups: CountryGroupQuerySchema[];
-}) {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Country groups</CardTitle>
-        <CardDescription>
-          Leave the discount field blank if you do not want to display deals for
-          any specific parity group.
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <CountryForm productId={productId} countryGroups={countryGroups} />
-      </CardContent>
-    </Card>
   );
 }
 

@@ -35,3 +35,29 @@ export async function getNotCachedProduct(productId: string, clerkId: string) {
     ),
   });
 }
+
+export async function getProductCustomization(
+  productId: string,
+  clerkId: string,
+) {
+  const cacheFn = dbCache(getNotCachedProductCustomization, {
+    tags: [getIdTag(productId, CACHE_TAGS.products)],
+  });
+
+  return cacheFn(productId, clerkId);
+}
+
+export async function getNotCachedProductCustomization(
+  productId: string,
+  clerkId: string,
+) {
+  const data = await db.query.productTable.findFirst({
+    where: and(
+      eq(productTable.id, productId),
+      eq(productTable.clerkId, clerkId),
+    ),
+    with: { productCustomization: true },
+  });
+
+  return data?.productCustomization;
+}

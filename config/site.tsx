@@ -12,6 +12,7 @@ export type EditProductTabHref = keyof typeof editProductTabHref;
 export const editProductTabHref = {
   details: "details",
   country: "country",
+  customizations: "customizations",
 };
 
 export const siteHref = {

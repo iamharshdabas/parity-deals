@@ -4,7 +4,7 @@ export const countryGroupsDiscount: CountryGroupQuerySchema[] = [
   {
     id: "group-0.2-0.3",
     name: "Parity Group: 0.2-0.3",
-    recommendedDiscount: 0.6,
+    recommendedDiscount: 60,
     country: [
       { code: "AF", name: "Afghanistan" },
       { code: "EG", name: "Egypt" },
@@ -31,7 +31,7 @@ export const countryGroupsDiscount: CountryGroupQuerySchema[] = [
   {
     id: "group-0.3-0.4",
     name: "Parity Group: 0.3-0.4",
-    recommendedDiscount: 0.5,
+    recommendedDiscount: 50,
     country: [
       { code: "AL", name: "Albania" },
       { code: "BA", name: "Bosnia and Herzegovina" },
@@ -97,7 +97,7 @@ export const countryGroupsDiscount: CountryGroupQuerySchema[] = [
   {
     id: "group-0.4-0.5",
     name: "Parity Group: 0.4-0.5",
-    recommendedDiscount: 0.5,
+    recommendedDiscount: 50,
     country: [
       { code: "EC", name: "Ecuador" },
       { code: "BG", name: "Bulgaria" },
@@ -134,7 +134,7 @@ export const countryGroupsDiscount: CountryGroupQuerySchema[] = [
   {
     id: "group-0.5-0.6",
     name: "Parity Group: 0.5-0.6",
-    recommendedDiscount: 0.4,
+    recommendedDiscount: 40,
     country: [
       { code: "GR", name: "Greece" },
       { code: "KN", name: "Saint Kitts and Nevis" },
@@ -170,7 +170,7 @@ export const countryGroupsDiscount: CountryGroupQuerySchema[] = [
   {
     id: "group-0.6-0.7",
     name: "Parity Group: 0.6-0.7",
-    recommendedDiscount: 0.3,
+    recommendedDiscount: 30,
     country: [
       { code: "AE", name: "United Arab Emirates" },
       { code: "ES", name: "Spain" },
@@ -195,7 +195,7 @@ export const countryGroupsDiscount: CountryGroupQuerySchema[] = [
   {
     id: "group-0.7-0.8",
     name: "Parity Group: 0.7-0.8",
-    recommendedDiscount: 0.2,
+    recommendedDiscount: 20,
     country: [
       { code: "AT", name: "Austria" },
       { code: "JP", name: "Japan" },
