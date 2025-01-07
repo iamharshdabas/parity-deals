@@ -1,9 +1,8 @@
 import SignInButton from "@/components/auth/sign-in";
 import ThemeToggle from "@/components/theme/toggle";
-import { Button } from "@/components/ui/button";
-import { siteData, siteNavLinks } from "@/config/site";
+import { siteData, siteNavLinksWithHome } from "@/config/site";
 import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-import Link from "next/link";
+import NavLinks from "./nav-links";
 
 export default function Navbar() {
   return (
@@ -14,13 +13,7 @@ export default function Navbar() {
           <span className="hidden sm:block">{siteData.title}</span>
         </div>
         <nav className="flex gap-2 items-center">
-          {siteNavLinks.map((link) => (
-            <Button key={link.href} variant="link" asChild>
-              <Link className="px-4" href={link.href}>
-                {link.label}
-              </Link>
-            </Button>
-          ))}
+          <NavLinks links={siteNavLinksWithHome} />
         </nav>
         <div className="flex gap-2 items-center">
           <ThemeToggle />

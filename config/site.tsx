@@ -30,7 +30,9 @@ export const siteHref = {
   // },
 };
 
-export const siteNavLinks: { label: string; href: string }[] = [
+export type SiteNavLinks = { label: string; href: string }[];
+
+export const siteNavLinksWithHome: SiteNavLinks = [
   {
     label: "Home",
     href: siteHref.home(),
@@ -39,4 +41,12 @@ export const siteNavLinks: { label: string; href: string }[] = [
     label: "Dashboard",
     href: siteHref.dashboard(),
   },
+  {
+    label: "Subscription",
+    href: siteHref.subscription(),
+  },
 ];
+
+export const siteNavLinks = siteNavLinksWithHome.filter(
+  (link) => link.href !== siteHref.home(),
+);

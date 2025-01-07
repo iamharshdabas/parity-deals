@@ -1,7 +1,7 @@
-import CustomizationForm from "@/app/dashboard/_components/form/customization";
 import CountryForm from "@/app/dashboard/_components/form/country";
+import CustomizationForm from "@/app/dashboard/_components/form/customization";
 import ProductForm from "@/app/dashboard/_components/form/product";
-import BackButton from "@/components/layout/back-button";
+import PageWrapper from "@/components/layout/page-wrapper";
 import Section from "@/components/layout/section";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -39,7 +39,7 @@ export default async function Page({
   const removeBranding = await canRemoveBranding(userId);
 
   return (
-    <BackButton backButtonHref={siteHref.dashboard()}>
+    <PageWrapper>
       <Tabs defaultValue={editProductTabHref.details}>
         <TabsList>
           <TabsTrigger value={editProductTabHref.details}>Details</TabsTrigger>
@@ -68,7 +68,7 @@ export default async function Page({
           />
         </TabsContent>
       </Tabs>
-    </BackButton>
+    </PageWrapper>
   );
 }
 

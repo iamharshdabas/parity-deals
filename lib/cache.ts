@@ -8,6 +8,7 @@ export type ValidTags =
 
 export const CACHE_TAGS = {
   products: "products",
+  productView: "productView",
   subscriptions: "subscriptions",
   country: "country",
   countryGroup: "countryGroup",

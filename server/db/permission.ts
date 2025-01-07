@@ -1,4 +1,4 @@
-import { getProducts } from "./product/get";
+import { getProductsCount } from "./product/get";
 import { getSubscriptionTier } from "./subscription/get";
 
 export async function canRemoveBranding(clerkId: string | null) {
@@ -26,9 +26,9 @@ export async function canCreateProduct(clerkId: string | null) {
   if (clerkId === null) return false;
   const tier = await getSubscriptionTier(clerkId);
 
-  const products = await getProducts(clerkId);
+  const count = await getProductsCount(clerkId);
 
-  if (products.length < tier.maxNumberOfProducts) return true;
+  if (count < tier.maxNumberOfProducts) return true;
 
   return false;
 }

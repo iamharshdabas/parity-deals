@@ -1,4 +1,4 @@
-import BackButton from "@/components/layout/back-button";
+import PageWrapper from "@/components/layout/page-wrapper";
 import Section from "@/components/layout/section";
 import { AlertDialog, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
@@ -36,16 +36,15 @@ export default async function Page() {
   if (products.length === 0) return <NoProducts />;
 
   return (
-    <BackButton
-      backButtonHref={siteHref.home()}
-      layoutButton={
+    <PageWrapper
+      navChildren={
         <Button variant="secondary" asChild>
           <Link href={siteHref.newProduct()}>Create Product</Link>
         </Button>
       }
     >
       <ProductGrid products={products} />
-    </BackButton>
+    </PageWrapper>
   );
 }
 

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { subtitle, title } from "@/config/class-variants";
 import { subscriptionData } from "@/config/subscription-tire";
+import { formatNumber } from "@/lib/utils";
 import { CircleCheck } from "lucide-react";
 import numbro from "numbro";
 
@@ -43,13 +44,7 @@ export default function Page() {
                   <span className={subtitle()}>/month</span>
                 </h1>
                 <h2 className={subtitle({ class: "flex gap-2 font-bold" })}>
-                  <span>
-                    {numbro(tire.maxNumberOfVisits).format({
-                      thousandSeparated: true,
-                      mantissa: 0,
-                      average: true,
-                    })}
-                  </span>
+                  <span>{formatNumber(tire.maxNumberOfProducts)}</span>
                   <span> page visits</span>
                 </h2>
                 <Button className="w-full">Get started</Button>
