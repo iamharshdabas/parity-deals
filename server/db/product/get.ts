@@ -3,19 +3,18 @@ import { productTable } from "@/drizzle/schema";
 import { CACHE_TAGS, dbCache, getIdTag, getUserTag } from "@/lib/cache";
 import { and, desc, eq } from "drizzle-orm";
 
-export async function getProducts(clerkId: string, limit?: number) {
+export async function getProducts(clerkId: string) {
   const cacheFn = dbCache(getNotCachedProducts, {
     tags: [getUserTag(clerkId, CACHE_TAGS.products)],
   });
 
-  return cacheFn(clerkId, limit);
+  return cacheFn(clerkId);
 }
 
-export async function getNotCachedProducts(clerkId: string, limit?: number) {
+export async function getNotCachedProducts(clerkId: string) {
   return await db.query.productTable.findMany({
     where: eq(productTable.clerkId, clerkId),
     orderBy: [desc(productTable.createdAt)],
-    limit,
   });
 }
 
