@@ -13,3 +13,11 @@ export function formatNumber(number: number) {
     average: true,
   });
 }
+
+export function formatCurrency(currency: number) {
+  return numbro(currency).formatCurrency({
+    thousandSeparated: true,
+    mantissa: 2,
+    spaceSeparated: true,
+  });
+}

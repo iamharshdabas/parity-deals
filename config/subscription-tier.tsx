@@ -1,4 +1,4 @@
-type SubscriptionTire = {
+export type SubscriptionTier = {
   name: string;
   price: number;
   maxNumberOfProducts: number;
@@ -8,7 +8,7 @@ type SubscriptionTire = {
   canRemoveBranding: boolean;
 };
 
-const free: SubscriptionTire = {
+const free: SubscriptionTier = {
   name: "Free",
   price: 0,
   maxNumberOfProducts: 1,
@@ -18,7 +18,7 @@ const free: SubscriptionTire = {
   canRemoveBranding: false,
 };
 
-const basic: SubscriptionTire = {
+const basic: SubscriptionTier = {
   name: "Basic",
   price: 19,
   maxNumberOfProducts: 10,
@@ -28,7 +28,7 @@ const basic: SubscriptionTire = {
   canRemoveBranding: false,
 };
 
-const standard: SubscriptionTire = {
+const standard: SubscriptionTier = {
   name: "Standard",
   price: 49,
   maxNumberOfProducts: 25,
@@ -38,7 +38,7 @@ const standard: SubscriptionTire = {
   canRemoveBranding: false,
 };
 
-const premium: SubscriptionTire = {
+const premium: SubscriptionTier = {
   name: "Premium",
   price: 99,
   maxNumberOfProducts: 50,
@@ -48,7 +48,7 @@ const premium: SubscriptionTire = {
   canRemoveBranding: true,
 };
 
-export const subscriptionTires: { [key: string]: SubscriptionTire } = {
+export const subscriptionTiers = {
   Free: free,
   Basic: basic,
   Standard: standard,
@@ -56,5 +56,5 @@ export const subscriptionTires: { [key: string]: SubscriptionTire } = {
 };
 export const subscriptionData = {
   title: "Pricing software which pays for itself 20x over",
-  tires: [free, basic, standard, premium],
+  tiers: [free, basic, standard, premium],
 };

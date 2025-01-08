@@ -1,4 +1,4 @@
-import { subscriptionTires } from "@/config/subscription-tire";
+import { subscriptionTiers } from "@/config/subscription-tier";
 import { db } from "@/drizzle/db";
 import { userSubscriptionTable } from "@/drizzle/schema";
 import { CACHE_TAGS, dbCache, getUserTag } from "@/lib/cache";
@@ -10,7 +10,7 @@ export async function getSubscriptionTier(clerkId: string) {
   if (subscription === undefined)
     throw new Error("User had no subscription not found");
 
-  return subscriptionTires[subscription.tier];
+  return subscriptionTiers[subscription.tier];
 }
 
 export async function getSubscription(clerkId: string) {

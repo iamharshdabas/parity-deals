@@ -1,7 +1,16 @@
 import PageWrapper from "@/components/layout/page-wrapper";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import SubscriptionTiers from "@/components/subscription/tiers";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { subtitle, title } from "@/config/class-variants";
+import { subscriptionTiers } from "@/config/subscription-tier";
 import { formatNumber } from "@/lib/utils";
 import {
   getProductsCount,
@@ -33,7 +42,7 @@ export default async function Page() {
             <CardTitle>
               {formatNumber(productsViewCount)}/
               {formatNumber(tier.maxNumberOfVisits)}&nbsp;
-              <span className={subtitle()}>visits per month</span>
+              <span className={subtitle()}>pricing page visits this month</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -45,13 +54,32 @@ export default async function Page() {
             <CardTitle>
               {formatNumber(productsCount)}/
               {formatNumber(tier.maxNumberOfProducts)}&nbsp;
-              <span className={subtitle()}>number of products</span>
+              <span className={subtitle()}>products created</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
             <Progress value={productsCount / tier.maxNumberOfProducts} />
           </CardContent>
         </Card>
+      </div>
+      {tier !== subscriptionTiers.Free && (
+        <Card className="mt-4">
+          <CardHeader>
+            <CardTitle>You are currently on the {tier.name} plan </CardTitle>
+            <CardDescription>
+              If you would like to upgrade, cancel or change your payment
+              method. Use the button below.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form>
+              <Button>Manage subscription</Button>
+            </form>
+          </CardContent>
+        </Card>
+      )}
+      <div className="my-8">
+        <SubscriptionTiers manageable currentTier={tier} />
       </div>
     </PageWrapper>
   );
