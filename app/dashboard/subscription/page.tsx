@@ -47,7 +47,9 @@ export default async function Page() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Progress value={productsViewCount / tier.maxNumberOfVisits} />
+            <Progress
+              value={(productsViewCount / tier.maxNumberOfVisits) * 100}
+            />
           </CardContent>
         </Card>
         <Card>
@@ -59,7 +61,9 @@ export default async function Page() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <Progress value={productsCount / tier.maxNumberOfProducts} />
+            <Progress
+              value={(productsCount / tier.maxNumberOfProducts) * 100}
+            />
           </CardContent>
         </Card>
       </div>

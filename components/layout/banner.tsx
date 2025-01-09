@@ -15,8 +15,6 @@ export default function Banner({
     message.replace(/'/g, "&#39;"),
   );
 
-  console.log("mappedMessage", mappedMessage);
-
   return (
     <>
       <style type="text/css">
