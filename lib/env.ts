@@ -13,6 +13,7 @@ export const env = createEnv({
     STRIPE_BASIC_PRICE: z.string().min(1),
     STRIPE_STANDARD_PRICE: z.string().min(1),
     STRIPE_PREMIUM_PRICE: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),

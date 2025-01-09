@@ -65,3 +65,9 @@ export const subscriptionData = {
   title: "Pricing software which pays for itself 20x over",
   tiers: [free, basic, standard, premium],
 };
+
+export function getSubscriptionTierByPriceId(priceId: string) {
+  return Object.values(subscriptionTiers).find(
+    (tier) => tier.stripePriceId === priceId,
+  );
+}

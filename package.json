@@ -11,7 +11,8 @@
     "db:dev": "drizzle-kit studio",
     "db:push": "drizzle-kit push",
     "db:updateCountryGroups": "tsx --env-file=.env.local ./tasks/updateCountryGroups.ts",
-    "webhook:dev": "ngrok http --url=witty-cobra-amusing.ngrok-free.app 3000"
+    "webhook:ngrok": "ngrok http --url=witty-cobra-amusing.ngrok-free.app 3000",
+    "webhook:stripe": "stripe listen --forward-to localhost:3000/api/webhook/stripe"
   },
   "dependencies": {
     "@clerk/elements": "^0.19.7",
