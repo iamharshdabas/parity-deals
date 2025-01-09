@@ -1,6 +1,16 @@
 import { subtitle, title } from "@/config/class-variants";
-import { subscriptionData, SubscriptionTier } from "@/config/subscription-tier";
+import {
+  subscriptionData,
+  SubscriptionPaidTiersName,
+  SubscriptionTier,
+  subscriptionTiers,
+} from "@/config/subscription-tier";
 import { formatCurrency, formatNumber } from "@/lib/utils";
+import {
+  createCancelSession,
+  createCheckoutSession,
+} from "@/server/action/stripe";
+import { CircleCheck } from "lucide-react";
 import { Button } from "../ui/button";
 import {
   Card,
@@ -9,7 +19,6 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
-import { CircleCheck } from "lucide-react";
 
 type Props = {
   manageable?: boolean;
@@ -37,9 +46,23 @@ export default function SubscriptionTiers({
           </CardHeader>
           <CardContent className="flex flex-col gap-4">
             {manageable ? (
-              <Button disabled={currentTier?.name === tier.name}>
-                {currentTier?.name === tier.name ? "Current" : "Swap"}
-              </Button>
+              <form
+                action={
+                  currentTier?.name === subscriptionTiers.Free.name
+                    ? createCancelSession
+                    : createCheckoutSession.bind(
+                        null,
+                        tier.name as SubscriptionPaidTiersName,
+                      )
+                }
+              >
+                <Button
+                  className="w-full"
+                  disabled={currentTier?.name === tier.name}
+                >
+                  {currentTier?.name === tier.name ? "Current" : "Swap"}
+                </Button>
+              </form>
             ) : (
               <Button className="w-full">Get started</Button>
             )}

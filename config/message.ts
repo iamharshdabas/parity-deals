@@ -32,6 +32,11 @@ export const errorMessage = {
     },
     updated: "There was an error updating the product customization",
   },
+  stripe: {
+    noUser: "User not found",
+    noSubscription: "Subscription not found",
+    FailedCheckoutSession: "Failed to create checkout session",
+  },
 };
 
 export const successMessage = {

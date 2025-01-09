@@ -12,6 +12,7 @@ import { Progress } from "@/components/ui/progress";
 import { subtitle, title } from "@/config/class-variants";
 import { subscriptionTiers } from "@/config/subscription-tier";
 import { formatNumber } from "@/lib/utils";
+import { createCustomerProtalSession } from "@/server/action/stripe";
 import {
   getProductsCount,
   getProductsViewCount,
@@ -72,7 +73,7 @@ export default async function Page() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form>
+            <form action={createCustomerProtalSession}>
               <Button>Manage subscription</Button>
             </form>
           </CardContent>

@@ -1,3 +1,5 @@
+import { env } from "@/lib/env";
+
 export type SubscriptionTier = {
   name: string;
   price: number;
@@ -6,6 +8,7 @@ export type SubscriptionTier = {
   canAccessAnalytics: boolean;
   canCustomizeBanner: boolean;
   canRemoveBranding: boolean;
+  stripePriceId?: string;
 };
 
 const free: SubscriptionTier = {
@@ -17,7 +20,6 @@ const free: SubscriptionTier = {
   canCustomizeBanner: false,
   canRemoveBranding: false,
 };
-
 const basic: SubscriptionTier = {
   name: "Basic",
   price: 19,
@@ -26,8 +28,8 @@ const basic: SubscriptionTier = {
   canAccessAnalytics: true,
   canCustomizeBanner: false,
   canRemoveBranding: false,
+  stripePriceId: env.STRIPE_BASIC_PRICE,
 };
-
 const standard: SubscriptionTier = {
   name: "Standard",
   price: 49,
@@ -36,8 +38,8 @@ const standard: SubscriptionTier = {
   canAccessAnalytics: true,
   canCustomizeBanner: true,
   canRemoveBranding: false,
+  stripePriceId: env.STRIPE_STANDARD_PRICE,
 };
-
 const premium: SubscriptionTier = {
   name: "Premium",
   price: 99,
@@ -46,6 +48,7 @@ const premium: SubscriptionTier = {
   canAccessAnalytics: true,
   canCustomizeBanner: true,
   canRemoveBranding: true,
+  stripePriceId: env.STRIPE_PREMIUM_PRICE,
 };
 
 export const subscriptionTiers = {
@@ -54,6 +57,10 @@ export const subscriptionTiers = {
   Standard: standard,
   Premium: premium,
 };
+
+export type SubscriptionTiersName = keyof typeof subscriptionTiers;
+export type SubscriptionPaidTiersName = Exclude<SubscriptionTiersName, "Free">;
+
 export const subscriptionData = {
   title: "Pricing software which pays for itself 20x over",
   tiers: [free, basic, standard, premium],

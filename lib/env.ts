@@ -9,6 +9,10 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     CLERK_SECRET_KEY: z.string().min(1),
     CLERK_WEBHOOK_SECRET: z.string().min(1),
+    STRIPE_SECRET_KEY: z.string().min(1),
+    STRIPE_BASIC_PRICE: z.string().min(1),
+    STRIPE_STANDARD_PRICE: z.string().min(1),
+    STRIPE_PREMIUM_PRICE: z.string().min(1),
   },
   client: {
     NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string().min(1),
