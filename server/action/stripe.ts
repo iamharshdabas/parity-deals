@@ -16,11 +16,7 @@ const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export async function createCancelSession() {}
 
-export async function createCheckoutSession(
-  tier: SubscriptionPaidTiersName,
-): Promise<void> {
-  console.log(subscriptionTiers[tier].name);
-
+export async function createCheckoutSession(tier: SubscriptionPaidTiersName) {
   const user = await currentUser();
   if (!user) throw new Error(errorMessage.stripe.noUser);
 

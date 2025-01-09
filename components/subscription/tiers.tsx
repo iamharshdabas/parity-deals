@@ -48,7 +48,7 @@ export default function SubscriptionTiers({
             {manageable ? (
               <form
                 action={
-                  currentTier?.name === subscriptionTiers.Free.name
+                  tier?.name === subscriptionTiers.Free.name
                     ? createCancelSession
                     : createCheckoutSession.bind(
                         null,
