@@ -1,7 +1,9 @@
 import { env } from "@/lib/env";
 
+export type SubscriptionTiersName = "Free" | "Basic" | "Standard" | "Premium";
+export type SubscriptionPaidTiersName = Exclude<SubscriptionTiersName, "Free">;
 export type SubscriptionTier = {
-  name: string;
+  name: SubscriptionTiersName;
   price: number;
   maxNumberOfProducts: number;
   maxNumberOfVisits: number;
@@ -57,9 +59,6 @@ export const subscriptionTiers = {
   Standard: standard,
   Premium: premium,
 };
-
-export type SubscriptionTiersName = keyof typeof subscriptionTiers;
-export type SubscriptionPaidTiersName = Exclude<SubscriptionTiersName, "Free">;
 
 export const subscriptionData = {
   title: "Pricing software which pays for itself 20x over",

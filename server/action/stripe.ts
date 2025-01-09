@@ -1,16 +1,16 @@
 "use server";
 
+import { errorMessage } from "@/config/message";
+import { siteHref } from "@/config/site";
 import {
   SubscriptionPaidTiersName,
   subscriptionTiers,
 } from "@/config/subscription-tier";
-import { currentUser, User } from "@clerk/nextjs/server";
-import { getSubscription } from "../db/subscription/get";
-import { Stripe } from "stripe";
 import { env } from "@/lib/env";
-import { siteHref } from "@/config/site";
+import { currentUser, User } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { errorMessage } from "@/config/message";
+import { Stripe } from "stripe";
+import { getNotCachedSubscription } from "../db/subscription/get";
 
 const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
@@ -20,7 +20,7 @@ export async function createCheckoutSession(tier: SubscriptionPaidTiersName) {
   const user = await currentUser();
   if (!user) throw new Error(errorMessage.stripe.noUser);
 
-  const subscription = await getSubscription(user.id);
+  const subscription = await getNotCachedSubscription(user.id);
   if (!subscription) throw new Error(errorMessage.stripe.noSubscription);
 
   if (!subscription.stripeCustomerId) {
@@ -47,7 +47,8 @@ async function getCheckoutSession(tier: SubscriptionPaidTiersName, user: User) {
       },
     ],
     mode: "subscription",
-    success_url: `${env.NEXT_PUBLIC_SITE_URL + siteHref.subscription()}`,
+    success_url: "http://localhost:3000/dashboard/subscription",
+    // `${env.NEXT_PUBLIC_SITE_URL + siteHref.subscription()}`,
     cancel_url: `${env.NEXT_PUBLIC_SITE_URL + siteHref.subscription()}`,
   });
 

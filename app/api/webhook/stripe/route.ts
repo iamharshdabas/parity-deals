@@ -47,6 +47,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     eq(userSubscriptionTable.clerkId, clerkUserId),
     {
       clerkId: clerkUserId,
+      tier: tier.name,
       stripeCustomerId: customerId,
       stripeSubscriptionId: subscription.id,
       stripeSubscriptionItemId: subscription.items.data[0].id,
