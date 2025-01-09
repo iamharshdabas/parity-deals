@@ -5,6 +5,10 @@ import {
 } from "@/drizzle/schema";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
+import {
+  countryGroupDiscountSelectSchema,
+  countrySelectSchema,
+} from "./country";
 
 export const productSelectSchema = createSelectSchema(productTable);
 export const productInsertSchema = createInsertSchema(productTable, {
@@ -59,7 +63,21 @@ export const productBannerSchema = z.object({
   canRemoveBranding: z.boolean(),
   message: z.string().min(1, "Required"),
   mappings: productBannerMappingsSchema,
-  customizations: productCustomizationFormSchema.omit({ bannerMessage: true }),
+  customizations: productCustomizationFormSchema
+    .omit({ bannerMessage: true })
+    .extend({ classPrefix: z.string().nullable() }),
+});
+
+export const productBannerResponseSchema = z.object({
+  canRemoveBranding: z.boolean(),
+  product: productSelectSchema
+    .pick({ id: true, clerkId: true })
+    .extend({ customization: productCustomizationSelectSchema }),
+  country: countrySelectSchema.pick({ id: true, name: true }),
+  discount: countryGroupDiscountSelectSchema.pick({
+    coupon: true,
+    discount: true,
+  }),
 });
 
 export type ProductBannerMappingsSchema = z.infer<
@@ -67,5 +85,8 @@ export type ProductBannerMappingsSchema = z.infer<
 >;
 export type ProductCustomizationFormSchema = z.infer<
   typeof productCustomizationFormSchema
+>;
+export type ProductBannerResponseSchema = z.infer<
+  typeof productBannerResponseSchema
 >;
 export type ProductBannerSchema = z.infer<typeof productBannerSchema>;

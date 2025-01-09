@@ -1,7 +1,11 @@
 import { db } from "@/drizzle/db";
-import { productCustomizationTable, productTable } from "@/drizzle/schema";
+import {
+  productCustomizationTable,
+  productTable,
+  productViewTable,
+} from "@/drizzle/schema";
 import { CACHE_TAGS, revalidateDbCache } from "@/lib/cache";
-import { ProductInsertSchema } from "@/schema/product";
+import { ProductInsertSchema, ProductViewInsertSchema } from "@/schema/product";
 import { eq } from "drizzle-orm";
 
 export async function createProduct(data: ProductInsertSchema) {
@@ -27,4 +31,22 @@ export async function createProduct(data: ProductInsertSchema) {
   });
 
   return createdProduct;
+}
+
+export async function createProductView(
+  clerkId: string,
+  data: ProductViewInsertSchema,
+) {
+  const [createdProductView] = await db
+    .insert(productViewTable)
+    .values(data)
+    .returning({ id: productViewTable.id });
+
+  if (createdProductView) {
+    revalidateDbCache({
+      tag: CACHE_TAGS.productView,
+      userId: clerkId,
+      id: data.id,
+    });
+  }
 }
