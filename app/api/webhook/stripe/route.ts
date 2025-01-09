@@ -1,4 +1,7 @@
-import { getSubscriptionTierByPriceId } from "@/config/subscription-tier";
+import {
+  getSubscriptionTierByPriceId,
+  subscriptionTiers,
+} from "@/config/subscription-tier";
 import { userSubscriptionTable } from "@/drizzle/schema";
 import { env } from "@/lib/env";
 import { updateSubscription } from "@/server/db/subscription/update";
@@ -46,7 +49,6 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   return await updateSubscription(
     eq(userSubscriptionTable.clerkId, clerkUserId),
     {
-      clerkId: clerkUserId,
       tier: tier.name,
       stripeCustomerId: customerId,
       stripeSubscriptionId: subscription.id,
@@ -55,6 +57,33 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   );
 }
 
-function handleSubscriptionUpdated(subscription: Stripe.Subscription) {}
+async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
+  const tier = getSubscriptionTierByPriceId(
+    subscription.items.data[0].price.id,
+  );
+  if (!tier) return new Response(null, { status: 500 });
 
-function handleSubscriptionDeleted(subscription: Stripe.Subscription) {}
+  const customer = subscription.customer;
+  const customerId = typeof customer === "string" ? customer : customer.id;
+
+  return await updateSubscription(
+    eq(userSubscriptionTable.stripeCustomerId, customerId),
+    {
+      tier: tier.name,
+    },
+  );
+}
+
+async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
+  const customer = subscription.customer;
+  const customerId = typeof customer === "string" ? customer : customer.id;
+
+  return await updateSubscription(
+    eq(userSubscriptionTable.stripeCustomerId, customerId),
+    {
+      tier: subscriptionTiers.Free.name,
+      stripeSubscriptionId: null,
+      stripeSubscriptionItemId: null,
+    },
+  );
+}

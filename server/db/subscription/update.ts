@@ -6,7 +6,7 @@ import { SQL } from "drizzle-orm";
 
 export async function updateSubscription(
   where: SQL,
-  data: UserSubscriptionInsertSchema,
+  data: Partial<UserSubscriptionInsertSchema>,
 ) {
   const [updatedSubscription] = await db
     .update(userSubscriptionTable)

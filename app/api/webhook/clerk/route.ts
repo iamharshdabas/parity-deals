@@ -4,6 +4,10 @@ import { deleteUser } from "@/server/db/user/delete";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
+import { Stripe } from "stripe";
+import { getNotCachedSubscription } from "@/server/db/subscription/get";
+
+const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export async function POST(req: Request) {
   const headerPayload = await headers();
@@ -45,6 +49,10 @@ export async function POST(req: Request) {
       await createSubscription({ clerkId });
       break;
     case "user.deleted":
+      const subscription = await getNotCachedSubscription(clerkId);
+      if (subscription?.stripeSubscriptionId) {
+        await stripe.subscriptions.cancel(subscription?.stripeSubscriptionId);
+      }
       await deleteUser(clerkId);
       break;
     default:

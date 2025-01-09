@@ -35,7 +35,7 @@ export const errorMessage = {
   stripe: {
     noUser: "User not found",
     noSubscription: "Subscription not found",
-    FailedCheckoutSession: "Failed to create checkout session",
+    FailedSession: "Failed to create session",
   },
 };
 
