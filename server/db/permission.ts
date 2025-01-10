@@ -1,6 +1,7 @@
 import { startOfMonth } from "date-fns";
-import { getProductsCount, getProductsViewCount } from "./product/get";
+import { getProductsCount } from "./product/get";
 import { getSubscriptionTier } from "./subscription/get";
+import { getProductsViewCount } from "./productViews/get";
 
 export async function canRemoveBranding(clerkId: string | null) {
   if (clerkId === null) return false;

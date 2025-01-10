@@ -32,10 +32,16 @@ export const errorMessage = {
     },
     updated: "There was an error updating the product customization",
   },
+  analytics: {
+    permission: {
+      title: defaultPermissionTitle("access analytics"),
+      description: defaultPermissionDescription("access analytics"),
+    },
+  },
   stripe: {
     noUser: "User not found",
     noSubscription: "Subscription not found",
-    FailedSession: "Failed to create session",
+    FailedCheckoutSession: "Failed to create session",
   },
 };
 

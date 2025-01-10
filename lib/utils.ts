@@ -21,3 +21,7 @@ export function formatCurrency(currency: number) {
     spaceSeparated: true,
   });
 }
+
+export function formatCountryGroup(countryGroup: string) {
+  return countryGroup.replace("Parity Group: ", "");
+}

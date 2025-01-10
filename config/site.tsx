@@ -18,6 +18,7 @@ export const editProductTabHref = {
 export const siteHref = {
   home: () => "/",
   dashboard: () => "/dashboard",
+  analytics: () => `${siteHref.dashboard()}/analytics`,
   subscription: () => `${siteHref.dashboard()}/subscription`,
   product: () => `${siteHref.dashboard()}/product`,
   newProduct: () => `${siteHref.product()}/new`,
@@ -30,6 +31,23 @@ export const siteHref = {
   // },
 };
 
+export function createURL(
+  href: string,
+  oldParams: Record<string, string>,
+  newParams: Record<string, string | undefined>,
+) {
+  const params = new URLSearchParams(oldParams);
+  Object.entries(newParams).forEach(([key, value]) => {
+    if (value == undefined) {
+      params.delete(key);
+    } else {
+      params.set(key, value);
+    }
+  });
+
+  return `${href}?${params.toString()}`;
+}
+
 export type SiteNavLinks = { label: string; href: string }[];
 
 export const siteNavLinksWithHome: SiteNavLinks = [
@@ -40,6 +58,10 @@ export const siteNavLinksWithHome: SiteNavLinks = [
   {
     label: "Dashboard",
     href: siteHref.dashboard(),
+  },
+  {
+    label: "Analytics",
+    href: siteHref.analytics(),
   },
   {
     label: "Subscription",

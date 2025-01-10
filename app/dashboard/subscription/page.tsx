@@ -13,10 +13,8 @@ import { subtitle, title } from "@/config/class-variants";
 import { subscriptionTiers } from "@/config/subscription-tier";
 import { formatNumber } from "@/lib/utils";
 import { createCustomerProtalSession } from "@/server/action/stripe";
-import {
-  getProductsCount,
-  getProductsViewCount,
-} from "@/server/db/product/get";
+import { getProductsCount } from "@/server/db/product/get";
+import { getProductsViewCount } from "@/server/db/productViews/get";
 import { getSubscriptionTier } from "@/server/db/subscription/get";
 import { auth } from "@clerk/nextjs/server";
 import { startOfMonth } from "date-fns";

@@ -1,5 +1,5 @@
 import { db } from "@/drizzle/db";
-import { countryTable, productTable, productViewTable } from "@/drizzle/schema";
+import { countryTable, productTable } from "@/drizzle/schema";
 import {
   CACHE_TAGS,
   dbCache,
@@ -7,7 +7,7 @@ import {
   getIdTag,
   getUserTag,
 } from "@/lib/cache";
-import { and, count, desc, eq, gte } from "drizzle-orm";
+import { and, count, desc, eq } from "drizzle-orm";
 
 export async function getProducts(clerkId: string) {
   const cacheFn = dbCache(getNotCachedProducts, {
@@ -135,32 +135,6 @@ export async function getNotCachedProductForBanner(
           discount: discount.discount,
         },
   };
-}
-
-export async function getProductsViewCount(clerkId: string, date: Date) {
-  const cacheFn = dbCache(getNotCachedProductsViewCount, {
-    tags: [getUserTag(clerkId, CACHE_TAGS.productView)],
-  });
-
-  return cacheFn(clerkId, date);
-}
-
-export async function getNotCachedProductsViewCount(
-  clerkId: string,
-  date: Date,
-) {
-  const data = await db
-    .select({ count: count() })
-    .from(productViewTable)
-    .innerJoin(productTable, eq(productTable.id, productViewTable.productId))
-    .where(
-      and(
-        eq(productTable.clerkId, clerkId),
-        gte(productViewTable.createdAt, date),
-      ),
-    );
-
-  return data[0].count ?? 0;
 }
 
 export async function getProductCustomization(
