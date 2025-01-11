@@ -65,7 +65,7 @@ export const productBannerSchema = z.object({
   mappings: productBannerMappingsSchema,
   customizations: productCustomizationFormSchema
     .omit({ bannerMessage: true })
-    .extend({ classPrefix: z.string().nullable() }),
+    .extend({ classPrefix: z.string().nullish() }),
 });
 
 export const productBannerResponseSchema = z.object({

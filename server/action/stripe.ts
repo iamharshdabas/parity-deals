@@ -46,11 +46,11 @@ export async function createCheckoutSession(tier: SubscriptionPaidTiersName) {
 
   if (!subscription.stripeCustomerId) {
     const url = await getCheckoutSession(tier, user);
-    if (!url) throw new Error(errorMessage.stripe.FailedSession);
+    if (!url) throw new Error(errorMessage.stripe.FailedCheckoutSession);
     redirect(url);
   } else {
     const url = await getSubscriptionUpdateSession(tier, subscription);
-    if (!url) throw new Error(errorMessage.stripe.FailedSession);
+    if (!url) throw new Error(errorMessage.stripe.FailedCheckoutSession);
     redirect(url);
   }
 }
