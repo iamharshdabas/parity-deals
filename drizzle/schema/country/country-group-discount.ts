@@ -8,10 +8,10 @@ export const countryGroupDiscountTable = pgTable(
   "country_group_discount",
   {
     countryGroupId: uuid("country_group_id")
-      .references(() => countryGroupTable.id)
+      .references(() => countryGroupTable.id, { onDelete: "cascade" })
       .notNull(),
     productId: uuid("product_id")
-      .references(() => productTable.id)
+      .references(() => productTable.id, { onDelete: "cascade" })
       .notNull(),
 
     coupon: varchar("coupon", { length }),
