@@ -33,7 +33,13 @@ export default async function Page() {
 
   const products = await getProducts(userId);
 
-  if (products.length === 0) return <NoProducts />;
+  if (products.length === 0) {
+    return (
+      <PageWrapper>
+        <NoProducts />;
+      </PageWrapper>
+    );
+  }
 
   return (
     <PageWrapper

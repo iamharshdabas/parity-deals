@@ -48,7 +48,11 @@ export default async function Page({
 
   const accessAnalytics = await canAccessAnalytics(userId);
   if (!accessAnalytics) {
-    return <NoPermissionCard message={errorMessage.analytics.permission} />;
+    return (
+      <PageWrapper>
+        <NoPermissionCard message={errorMessage.analytics.permission} />;
+      </PageWrapper>
+    );
   }
 
   return (
