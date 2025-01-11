@@ -36,7 +36,7 @@ export default async function Page() {
   if (products.length === 0) {
     return (
       <PageWrapper>
-        <NoProducts />;
+        <NoProducts />
       </PageWrapper>
     );
   }

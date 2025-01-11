@@ -50,7 +50,7 @@ export default async function Page({
   if (!accessAnalytics) {
     return (
       <PageWrapper>
-        <NoPermissionCard message={errorMessage.analytics.permission} />;
+        <NoPermissionCard message={errorMessage.analytics.permission} />
       </PageWrapper>
     );
   }
