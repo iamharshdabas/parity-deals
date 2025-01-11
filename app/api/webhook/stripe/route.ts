@@ -4,12 +4,11 @@ import {
 } from "@/config/subscription-tier";
 import { userSubscriptionTable } from "@/drizzle/schema";
 import { env } from "@/lib/env";
+import { stripe } from "@/lib/stripe";
 import { updateSubscription } from "@/server/db/subscription/update";
 import { eq } from "drizzle-orm";
 import { NextRequest } from "next/server";
 import { Stripe } from "stripe";
-
-const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export async function POST(request: NextRequest) {
   const event = stripe.webhooks.constructEvent(

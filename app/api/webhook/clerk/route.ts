@@ -1,13 +1,11 @@
 import { env } from "@/lib/env";
+import { stripe } from "@/lib/stripe";
 import { createSubscription } from "@/server/db/subscription/create";
+import { getNotCachedSubscription } from "@/server/db/subscription/get";
 import { deleteUser } from "@/server/db/user/delete";
 import { WebhookEvent } from "@clerk/nextjs/server";
 import { headers } from "next/headers";
 import { Webhook } from "svix";
-import { Stripe } from "stripe";
-import { getNotCachedSubscription } from "@/server/db/subscription/get";
-
-const stripe = new Stripe(env.STRIPE_SECRET_KEY);
 
 export async function POST(req: Request) {
   const headerPayload = await headers();

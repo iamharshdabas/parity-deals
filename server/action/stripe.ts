@@ -9,10 +9,8 @@ import {
 import { env } from "@/lib/env";
 import { auth, currentUser, User } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
-import { Stripe } from "stripe";
 import { getNotCachedSubscription } from "../db/subscription/get";
-
-const stripe = new Stripe(env.STRIPE_SECRET_KEY);
+import { stripe } from "@/lib/stripe";
 
 export async function createCancelSession() {
   const user = await currentUser();
