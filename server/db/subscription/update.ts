@@ -8,6 +8,7 @@ export async function updateSubscription(
   where: SQL,
   data: Partial<UserSubscriptionInsertSchema>,
 ) {
+  console.log(where, data);
   const [updatedSubscription] = await db
     .update(userSubscriptionTable)
     .set(data)
