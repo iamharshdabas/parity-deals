@@ -1,3 +1,5 @@
+"use server";
+
 import { env } from "@/lib/env";
 import { stripe } from "@/lib/stripe";
 import { createSubscription } from "@/server/db/subscription/create";

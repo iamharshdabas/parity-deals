@@ -1,3 +1,5 @@
+"use server";
+
 import {
   getSubscriptionTierByPriceId,
   subscriptionTiers,
@@ -16,9 +18,6 @@ export async function POST(request: NextRequest) {
     request.headers.get("stripe-signature") as string,
     env.STRIPE_WEBHOOK_SECRET,
   );
-
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("POST event: %s", event.type); // __AUTO_GENERATED_PRINT_VAR_END__
 
   switch (event.type) {
     case "customer.subscription.created": {
@@ -43,19 +42,11 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
     subscription.items.data[0].price.id,
   );
 
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionCreated tier: %s", tier); // __AUTO_GENERATED_PRINT_VAR_END__
   const clerkUserId = subscription.metadata.clerk_user_id;
   if (!tier || !clerkUserId) return new Response(null, { status: 500 });
 
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionCreated clerkUserId: %s", clerkUserId); // __AUTO_GENERATED_PRINT_VAR_END__
   const customer = subscription.customer;
   const customerId = typeof customer === "string" ? customer : customer.id;
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionCreated customerId: %s", customerId); // __AUTO_GENERATED_PRINT_VAR_END__
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionCreated customer: %s", customer); // __AUTO_GENERATED_PRINT_VAR_END__
 
   return await updateSubscription(
     eq(userSubscriptionTable.clerkId, clerkUserId),
@@ -74,16 +65,8 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   );
   if (!tier) return new Response(null, { status: 500 });
 
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionUpdated tier: %s", tier); // __AUTO_GENERATED_PRINT_VAR_END__
-
   const customer = subscription.customer;
   const customerId = typeof customer === "string" ? customer : customer.id;
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionUpdated customerId: %s", customerId); // __AUTO_GENERATED_PRINT_VAR_END__
-
-  // __AUTO_GENERATED_PRINT_VAR_START__
-  console.log("handleSubscriptionUpdated customer: %s", customer); // __AUTO_GENERATED_PRINT_VAR_END__
 
   return await updateSubscription(
     eq(userSubscriptionTable.stripeCustomerId, customerId),
