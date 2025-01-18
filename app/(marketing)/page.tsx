@@ -2,7 +2,9 @@ import Section from "@/components/layout/section";
 import SubscriptionTiers from "@/components/subscription/tiers";
 import { Button } from "@/components/ui/button";
 import { subtitle, title } from "@/config/class-variants";
+import { siteHref } from "@/config/site";
 import { subscriptionData } from "@/config/subscription-tier";
+import Link from "next/link";
 
 export default function Page() {
   return (
@@ -14,8 +16,9 @@ export default function Page() {
           Capture 85% of the untapped market with location-based dynamic pricing
         </h2>
         <div className="flex flex-col w-full sm:w-fit sm:flex-row gap-4">
-          <Button variant="outline">Book a demo</Button>
-          <Button>Get started for free </Button>
+          <Button asChild>
+            <Link href={siteHref.dashboard()}>Get started for free</Link>
+          </Button>
         </div>
       </Section>
 

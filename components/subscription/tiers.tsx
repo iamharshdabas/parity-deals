@@ -19,6 +19,8 @@ import {
   CardHeader,
   CardTitle,
 } from "../ui/card";
+import Link from "next/link";
+import { siteHref } from "@/config/site";
 
 type Props = {
   manageable?: boolean;
@@ -64,7 +66,9 @@ export default function SubscriptionTiers({
                 </Button>
               </form>
             ) : (
-              <Button className="w-full">Get started</Button>
+              <Button className="w-full" asChild>
+                <Link href={siteHref.subscription()}>Get started</Link>
+              </Button>
             )}
           </CardContent>
           <CardFooter className="flex-col items-start gap-4">
