@@ -57,71 +57,75 @@ export default async function Page({
 
   return (
     <PageWrapper>
-      <h1 className={title({ size: "sm", class: "py-4" })}>Analytics</h1>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            {interval.label}
-            <ChevronDownIcon />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          {Object.entries(INTERVALS).map(([key, value]) => (
-            <DropdownMenuItem asChild key={key}>
-              <Link
-                href={createURL(siteHref.analytics(), awaitedSearchParams, {
-                  interval: key,
-                })}
-              >
-                {value.label}
-              </Link>
-            </DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <ProductDropdown
-        userId={userId}
-        selectedProductId={productId}
-        searchParams={awaitedSearchParams}
-      />
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">
-            {timezone}
-            <ChevronDownIcon />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem asChild>
-            <Link
-              href={createURL(siteHref.analytics(), awaitedSearchParams, {
-                timezone: "UTC",
-              })}
-            >
-              UTC
-            </Link>
-          </DropdownMenuItem>
-          <TimezoneDropdown searchParams={awaitedSearchParams} />
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <ViewsByDay
-        clerkId={userId}
-        timezone={timezone}
-        productId={productId}
-        interval={interval}
-      />
-      <ViewsByCountryGroup
-        clerkId={userId}
-        timezone={timezone}
-        productId={productId}
-        interval={interval}
-      />
-      <ViewsByCountry
-        clerkId={userId}
-        timezone={timezone}
-        productId={productId}
-        interval={interval}
-      />
+      <h1 className={title({ size: "sm", class: "pb-8 py-4" })}>Analytics</h1>
+      <div className="space-y-8 pb-8">
+        <div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                {interval.label}
+                <ChevronDownIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              {Object.entries(INTERVALS).map(([key, value]) => (
+                <DropdownMenuItem asChild key={key}>
+                  <Link
+                    href={createURL(siteHref.analytics(), awaitedSearchParams, {
+                      interval: key,
+                    })}
+                  >
+                    {value.label}
+                  </Link>
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <ProductDropdown
+            userId={userId}
+            selectedProductId={productId}
+            searchParams={awaitedSearchParams}
+          />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline">
+                {timezone}
+                <ChevronDownIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem asChild>
+                <Link
+                  href={createURL(siteHref.analytics(), awaitedSearchParams, {
+                    timezone: "UTC",
+                  })}
+                >
+                  UTC
+                </Link>
+              </DropdownMenuItem>
+              <TimezoneDropdown searchParams={awaitedSearchParams} />
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+        <ViewsByDay
+          clerkId={userId}
+          timezone={timezone}
+          productId={productId}
+          interval={interval}
+        />
+        <ViewsByCountryGroup
+          clerkId={userId}
+          timezone={timezone}
+          productId={productId}
+          interval={interval}
+        />
+        <ViewsByCountry
+          clerkId={userId}
+          timezone={timezone}
+          productId={productId}
+          interval={interval}
+        />
+      </div>
     </PageWrapper>
   );
 }
@@ -195,7 +199,7 @@ async function ViewsByCountryGroup(
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Views by day</CardTitle>
+        <CardTitle>Views by country group</CardTitle>
       </CardHeader>
       <CardContent>
         <ViewsByCountryGroupChart chart={data} />
@@ -210,7 +214,7 @@ async function ViewsByCountry(props: Parameters<typeof getViewsByCountry>[0]) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Views by day</CardTitle>
+        <CardTitle>Views by country</CardTitle>
       </CardHeader>
       <CardContent>
         <ViewsByCountryChart chart={data} />
